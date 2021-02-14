@@ -25,7 +25,7 @@
                                 </a>
                             </div> -->
                         </div>
-                        <p class="description text-center">Ingresa Tus Datos</p>
+                        <p class="description text-center">Ingresá Tus Datos</p>
                         <div class="card-body">
 
                             <div class="input-group">
@@ -34,7 +34,7 @@
                                         <i class="material-icons">mail</i>
                                     </span>
                                 </div>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email..." name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             </div>
 
                             <div class="input-group">
@@ -43,11 +43,11 @@
                                         <i class="material-icons">lock_outline</i>
                                     </span>
                                 </div>
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password...">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
                             </div>
 
                             <div class="checkbox text-center">
-                                <label>
+                                <label style="padding-top: 20px;">
                                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                     Recordar sesión
                                 </label>

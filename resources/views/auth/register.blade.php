@@ -25,7 +25,7 @@
                                 </a>
                             </div> -->
                         </div>
-                        <p class="description text-center">Completa Tus Datos</p>
+                        <p class="description text-center">Completá Tus Datos</p>
                         <div class="card-body">
 
                             <div   div class="input-group">
@@ -34,7 +34,7 @@
                                         <i class="material-icons">face</i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control"  placeholder="Nombre" name="name" value="{{ old('name') }}" required autofocus>
+                                <input type="text" class="form-control"  placeholder="Nombre de Usuario" name="name" value="{{ old('name') }}" required autofocus>
                             </div>
 
                             <div class="input-group">
@@ -43,7 +43,7 @@
                                         <i class="material-icons">mail</i>
                                     </span>
                                 </div>
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Correo Electronico" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Correo Electrónico" name="email" value="{{ old('email') }}" required autocomplete="email">
                             </div>
 
                             <div class="input-group">

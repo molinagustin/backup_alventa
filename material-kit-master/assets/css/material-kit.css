@@ -14654,7 +14654,7 @@ textarea {
 .navbar {
   border: 0;
   border-radius: 3px;
-  padding: 0.625rem 0;
+  /* padding: 0.625rem 0; */
   margin-bottom: 20px;
   color: #555;
   background-color: #ffffff !important;
@@ -14778,7 +14778,7 @@ textarea {
   height: 50px;
   font-size: 1.125rem;
   line-height: 30px;
-  padding: 0.625rem 0;
+  /* padding: 0.625rem 0; */
 }
 
 .navbar.bg-primary {
@@ -17389,7 +17389,7 @@ footer .pull-center {
 }
 
 .login-page .footer {
-  position: absolute;
+  position: relative;
   width: 100%;
   background: transparent;
   bottom: 0;
@@ -18277,7 +18277,7 @@ footer .pull-center {
 
 .profile-page .page-header {
   height: 380px;
-  background-position: top center;
+  background-position: center center;
 }
 
 .profile-page .profile {
