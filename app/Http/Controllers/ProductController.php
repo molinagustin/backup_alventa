@@ -21,6 +21,9 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        //Llamo a la funcion para validar lo que ingresa en los campos
+        $this->valid($request);
+
         //Registra el producto. Por medio del metodo DD nos permite imprimir el contenido que llega a $request, poder mostrarlo en la pagina a efectos practicos 
         //y luego finaliza la respuesta del servidor.
         //dd($request->all());
@@ -49,6 +52,8 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->valid($request);
+
         $product = Product::find($id);
 
         $product->name = $request->input('name');
@@ -73,6 +78,28 @@ class ProductController extends Controller
 
         //Con return BACK, nos redirige directamente a la pagina donde estabamos al momento de realizar la accion, en este caso el listado de productos
         return back();
+    }
+
+    public function valid(Request $request)
+    {
+        //Realizo la validacion de los campos antes de proceder a guardar el producto
+        $messages = [
+            'name.required' => 'Es necesario un nombre para el producto.',
+            'name.min' => 'El nombre del producto debe ser mayor a 3 caracteres.',
+            'description.required' => 'Es necesario colocar una descripción.',
+            'description.max' => 'El contenido de la descripción debe ser menor a 200 caracteres.',
+            'price.required' => 'Es necesario introducir un precio.',
+            'price.numeric' => 'El precio debe ser numerico unicamente.',
+            'price.min' => 'El precio no puede ser un valor negativo.'
+        ];
+
+        //Creo el array de las reglas de validacion que se corresponden al nombre de los campos a tratar
+        $rules = [
+            'name' => 'required|min:3',
+            'description' => 'required|max:200',
+            'price' => 'required|numeric|min:0'
+        ];
+        $this->validate($request, $rules, $messages);
     }
 
 }

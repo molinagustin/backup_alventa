@@ -15,4 +15,22 @@ class Product extends Model
     public function images(){
         return $this->hasMany(ProductImage::class);
     }
+
+    //Campo calculado, se accede en WELCOME.BLADE.PHP a traves de features_image_url
+    public function getFeaturedImageUrlAttribute()
+    {
+        //Primero obtengo la primer imagen que tenga como condicion FEATURED o DESTACADA
+        $featuredImage = $this->images()->where('featured', true)->first();
+        //Si no hay una, busco la primera que encuentro
+        if (!$featuredImage)        
+            $featuredImage = $this->images()->first();        
+
+        //Si hay al menos una imagen, le devuelvo la URL a traves del campo calculado en ProductImage
+        if ($featuredImage)        
+            return $featuredImage->url;  
+                
+        //Si no hay una imagen, devuelve la url de la imagen por defecto
+        return '/images/products/default.png';
+
+    }
 }

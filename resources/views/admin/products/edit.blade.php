@@ -14,9 +14,19 @@
 
   <div class="container">
 
-    <div class="section text-center">
-      <h2 class="title">Editar Datos del Producto</h2>
-
+    <div class="section">
+      <h2 class="title text-center">Editar Datos del Producto</h2>
+      @if ($errors->any())
+      <div class="alert alert-danger">
+        <ul>
+          @foreach($errors->all() as $error)
+          <li>
+            {{$error}}
+          </li>
+          @endforeach
+        </ul>
+      </div>
+      @endif
       <form method="post" action="{{url('/admin/products/'.$product->id.'/edit')}}">
         @csrf
 
@@ -25,14 +35,14 @@
           <div class="col-sm-6">
             <div class="form-group label-floating">
               <label class="control-label">Nombre del Producto</label>
-              <input type="text" class="form-control" name="name" value="{{ $product->name }}" required>
+              <input type="text" class="form-control" name="name" value="{{ old('name', $product->name) }}" >
             </div>
           </div>
 
           <div class="col-sm-6">
             <div class="form-group label-floating">
               <label class="control-label">Precio</label>
-              <input type="number" step="0.01" class="form-control" name="price" value="{{ $product->price }}" required>
+              <input type="number" step="0.01" class="form-control" name="price" value="{{ old('price', $product->price) }}" >
             </div>
           </div>
 
@@ -40,13 +50,14 @@
 
         <div class="form-group label-floating">
           <label class="control-label">Breve Descripción del Producto</label>
-          <input type="text" class="form-control" name="description" value="{{ $product->description }}" required>
+          <input type="text" class="form-control" name="description" value="{{ old('description', $product->description) }}" >
         </div>
 
-        <textarea class="form-control" rows="3" name="long_description" placeholder="Descripción Completa del Producto">{{ $product->long_description }}</textarea>
-
+        <textarea class="form-control" rows="3" name="long_description" placeholder="Descripción Completa del Producto">{{ old('long_description', $product->long_description) }}</textarea>
+        <div class="text-center">
         <button type="submit" class="btn btn-primary">Guardar</button>
         <a href="{{ url('admin/products') }}" class="btn btn-default">Cancelar</a>
+        </div>
       </form>
 
     </div>
@@ -54,40 +65,6 @@
   </div>
 </div>
 
+@include('includes.footer')
 
-<footer class="footer footer-default">
-  <div class="container">
-    <nav class="float-left">
-      <ul>
-        <li>
-          <a href="https://www.creative-tim.com/">
-            Creative Tim
-          </a>
-        </li>
-        <li>
-          <a href="https://www.creative-tim.com/presentation">
-            About Us
-          </a>
-        </li>
-        <li>
-          <a href="https://www.creative-tim.com/blog">
-            Blog
-          </a>
-        </li>
-        <li>
-          <a href="https://www.creative-tim.com/license">
-            Licenses
-          </a>
-        </li>
-      </ul>
-    </nav>
-    <div class="copyright float-right">
-      &copy;
-      <script>
-        document.write(new Date().getFullYear())
-      </script>, made with <i class="material-icons">favorite</i> by
-      <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
-    </div>
-  </div>
-</footer>
 @endsection

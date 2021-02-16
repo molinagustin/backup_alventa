@@ -13,7 +13,7 @@
                         @csrf
                         <div class="card-header card-header-primary text-center">
                             <h4 class="card-title">Registro</h4>
-                           <!--  <div class="social-line">
+                            <!--  <div class="social-line">
                                 <a href="#" class="btn btn-just-icon btn-link">
                                     <i class="fa fa-facebook-square"></i>
                                 </a>
@@ -28,13 +28,13 @@
                         <p class="description text-center">Completá Tus Datos</p>
                         <div class="card-body">
 
-                            <div   div class="input-group">
+                            <div div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="material-icons">face</i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control"  placeholder="Nombre de Usuario" name="name" value="{{ old('name') }}" required autofocus>
+                                <input type="text" class="form-control" placeholder="Nombre de Usuario" name="name" value="{{ old('name') }}" required autofocus>
                             </div>
 
                             <div class="input-group">
@@ -76,41 +76,7 @@
     </div>
 
 
-    <footer class="footer">
-        <div class="container">
-            <nav class="float-left">
-                <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com/">
-                            Creative Tim
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.creative-tim.com/presentation">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.creative-tim.com/blog">
-                            Blog
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.creative-tim.com/license">
-                            Licenses
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright float-right">
-                &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script>, made with <i class="material-icons">favorite</i> by
-                <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
-            </div>
-        </div>
-    </footer>
+    @include('includes.footer')
 
 </div>
 @endsection

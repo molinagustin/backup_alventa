@@ -7,7 +7,7 @@
   <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title> @yield('tittle', 'AlVenta, tu lugar de intercambios')
-    
+
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 
@@ -46,12 +46,18 @@
         </li>
         @endif
         @else
+
         <li class="nav-item dropdown">
           <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ Auth::user()->name }} <span class="caret"></span>
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+            @if (auth()->user()->rol->id == 1)
+            <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>
+            @endif
+
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
               {{ __('Cerrar Sesión') }}
@@ -64,7 +70,7 @@
         </li>
         @endguest
 
-<!--         <li class="nav-item">
+        <!--         <li class="nav-item">
           <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter" rel="nofollow">
             <i class="fa fa-twitter"></i>
           </a>
