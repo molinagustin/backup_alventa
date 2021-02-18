@@ -33,4 +33,10 @@ class Product extends Model
         return '/images/products/default.png';
 
     }
+
+    //Relacion hacia el detalle del carro de compras
+    public function as()
+    {
+
+    }
 }

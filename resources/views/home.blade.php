@@ -17,46 +17,110 @@
         <div class="section ">
             <h2 class="title text-center">Dashboard</h2>
 
-            @if (session('status'))
+            @if (session('notification'))
             <div class="alert alert-success" role="alert">
-                {{ session('status') }}
+                {{ session('notification') }}
             </div>
             @endif
 
             <ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#dashboard-1" role="tab" data-toggle="tab">
+                    <a class="nav-link active" href="#dashboard" role="tab" data-toggle="tab">
                         <i class="material-icons">dashboard</i>
                         Resumen
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#schedule-1" role="tab" data-toggle="tab">
+                    <a class="nav-link" href="#shopping_cart" role="tab" data-toggle="tab">
                         <i class="material-icons">shopping_cart</i>
                         Carro de Compras
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tasks-1" role="tab" data-toggle="tab">
+                    <a class="nav-link" href="#orders" role="tab" data-toggle="tab">
                         <i class="material-icons">list</i>
                         Pedidos Realizados
                     </a>
                 </li>
             </ul>
             <div class="tab-content tab-space">
-                <div class="tab-pane active" id="dashboard-1">
-                    Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
-                    <br><br>
-                    Dramatically visualize customer directed convergence without revolutionary ROI.
+                <div class="tab-pane active" id="dashboard">
+
                 </div>
-                <div class="tab-pane" id="schedule-1">
-                    Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
-                    <br><br>Dramatically maintain clicks-and-mortar solutions without functional solutions.
+
+                <div class="tab-pane" id="shopping_cart">
+                    <hr>
+                    <p>Tienes <b>{{ auth()->user()->cart->details->count() }}</b> productos en tu carro de compras.</p>
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th class="text-center">Imagen</th>
+                                <th class="col-auto text-center">Nombre</th>
+                                <th class="text-right">Precio</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Sub Total</th>
+                                <th class="text-center">Opciones</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @foreach(auth()->user()->cart->details as $detail)
+                            <tr>
+                                <td class="text-center">
+                                    <img src="{{$detail->product->featured_image_url}}" width="50" height="50">
+                                </td>
+
+                                <td class="text-center">
+                                    <a href="{{ url('/products/'. $detail->product->id) }}" target="_blank">{{$detail->product->name}}</a>
+                                </td>
+
+                                <td class="text-right">&dollar; {{$detail->product->price}}</td>
+
+                                <td class="text-center">{{ $detail->quantity }}</td>
+
+                                <td class="text-center">&dollar; {{ $detail->quantity * $detail->product->price }}</td>
+
+                                <td class="td-actions text-center">
+
+                                    <form method="post" action="{{ url('/cart') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <!--<input type="hidden" name="_method" value="DELETE">
+                    el @method('DELETE') es equivalente al INPUT HIDDEN-->
+
+                                        <input type="hidden" name="cart_detail_id" value="{{ $detail->id }}">
+
+                                        <a href="{{ url('/products/'. $detail->product->id) }}" target="_blank" rel="tooltip" data-placement="right" title="Ver Detalles" class="btn btn-info btn-simple btn-xs">
+                                            <i class="fa fa-info-circle"></i>
+                                        </a>
+
+                                        <button type="submit" rel="tooltip" data-placement="right" title="Eliminar" class="btn btn-danger btn-simple btn-xs">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-round">
+                            <i class="material-icons">local_shipping</i> Realizar Pedido
+                        </button>
+                    </div>
+
                 </div>
-                <div class="tab-pane" id="tasks-1">
-                    Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
-                    <br><br>Dynamically innovate resource-leveling customer service for state of the art customer service.
+
+                <div class="tab-pane" id="orders">
+
                 </div>
+
             </div>
 
         </div>

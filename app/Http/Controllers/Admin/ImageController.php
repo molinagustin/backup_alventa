@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Product;
 use App\ProductImage;
 use Illuminate\Http\Request;
 use File;
-
+use Image;
 
 class ImageController extends Controller
 {
@@ -19,12 +21,22 @@ class ImageController extends Controller
 
     public function store(Request $request, $id) //El id hace referencia al producto
     {
+        //Hago comprobaciones para asegurarme que se trata de una imagen en el metodo VALID creado en este mismo controlador
+        $this->valid($request);
+
         //Guardar la imagen en la carpeta de nuestro proyecto
         $file = $request->file('photo');
-        $path = public_path() . '/images/products'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
+        $path = public_path() . '/images/products/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
         $fileName = uniqid() . $file->getClientOriginalName(); //Se guarda un nombre en el cual se genera un ID unico y se concatena con el nombre del archivo
+        
+        //Redimensiono la imagen
+        $moved = Image::make($file)
+                    ->resize(250, 250)
+                    ->save($path . $fileName);      
+        
         //Se usa una variable intermedia porque en servidores como Linux, si no se cuenta con permisos apropiados a veces no crea la carpeta y si no lo verificamos antes de guardar la imagen en la BD, de igual forma se guardara a pesar de no tener carpeta
-        $moved = $file->move($path, $fileName); //Finalmente al archivo se lo guarda en la ruta con el nombre indicado
+        //Esta forma es sin usar el Intervention Image para redimensionar la imagen, simplemente se guarda como viene
+        //$moved = $file->move($path, $fileName); //Finalmente al archivo se lo guarda en la ruta con el nombre indicado
 
         //Guardar el registro en la base de datos
         if ($moved) {
@@ -32,10 +44,10 @@ class ImageController extends Controller
             $productImage->image = $fileName;
             //$productImage -> featured = ''; Las imagenes no seran destacadas por defecto
             $productImage->product_id = $id;
-            $productImage->save(); //REaliza un INSERT
+            $productImage->save(); //Realiza un INSERT
         }
 
-        return back(); //Lo devuelve a la pagina de imagenes
+        return back()->with('notification', 'Imagen subida correctamente.'); //Lo devuelve a la pagina de imagenes
     }
 
     public function destroy(Request $request)
@@ -75,5 +87,22 @@ class ImageController extends Controller
         $productImage -> save();
 
         return back();
+    }
+
+    public function valid(Request $request)
+    {
+        //Realizo la validacion de los campos antes de proceder a guardar el producto
+        $messages = [
+            'photo.file' => 'El archivo no fue subido correctamente y no pudo guardarse.',
+            'photo.mimes' => 'Las extensiones validas para la imagen son JPEG, PNG, JPG, GIF y SVG.',          
+            'photo.max' => 'El archivo a cargar no puede superar los 2Mb.',          
+            'photo.dimensions' => 'La imagen debe contener dimensiones mayores a 100px y menores a 2048px.',          
+        ];
+
+        //Creo el array de las reglas de validacion que se corresponden al nombre de los campos a tratar
+        $rules = [
+            'photo' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=2048,max_height=2048',
+        ];
+        $this->validate($request, $rules, $messages);
     }
 }

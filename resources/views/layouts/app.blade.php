@@ -18,6 +18,10 @@
 
   <!-- CSS Files -->
   <link href="{{asset('css/material-kit.css?v=2.0.7')}}" rel="stylesheet" />
+
+  <!--Estilos de Welcome.Blade.php-->
+  @yield('styles')
+
 </head>
 
 <body class="@yield('body-class')">
@@ -53,6 +57,8 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+            <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
 
             @if (auth()->user()->rol->id == 1)
             <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>

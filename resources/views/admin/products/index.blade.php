@@ -30,7 +30,7 @@
             <thead>
 
               <tr>
-                <th class="text-center">Imagen</th>
+                <th class="text-center">#</th>
                 <th class="col-auto">Nombre</th>
                 <th class="col-auto">Descripción</th>
                 <th>Categoría</th>

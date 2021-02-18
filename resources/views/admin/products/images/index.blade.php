@@ -31,12 +31,12 @@
                 <input type="hidden" name="image_id" value="{{ $image->id }}">
                 @if ($image->featured)
                 <button type="button" class="btn btn-info btn-round" rel="tooltip" title="Imagen Destacada">
-                    <i class="material-icons">favorite</i>
-                  </button>
+                  <i class="material-icons">favorite</i>
+                </button>
                 @else
-                  <a href="{{ url('/admin/products/'. $product->id .'/images/select/'.$image->id) }}" class="btn btn-primary btn-fab btn-round">
-                    <i class="material-icons">favorite</i>
-                  </a>
+                <a href="{{ url('/admin/products/'. $product->id .'/images/select/'.$image->id) }}" class="btn btn-primary btn-fab btn-round">
+                  <i class="material-icons">favorite</i>
+                </a>
                 @endif
                 <button type="submit" class="btn btn-danger btn-fab btn-round"><i class="fa fa-times"></i></button>
               </form>
@@ -57,8 +57,19 @@
         <a href="{{url('/admin/products')}}" class="btn btn-default btn-round">Volver</a>
       </form>
 
-
     </div>
+
+    <!--Muestro si surge algun error-->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    </div>
+    <br>
+    @endif
 
   </div>
 

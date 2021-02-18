@@ -24,17 +24,17 @@ class ProductsTableSeeder extends Seeder
         //Si queres que cada categoria tenga cierta cantidad de productos y que cada producto tenga cierta cantidad de imagenes utilizamos otro enfoque
         //Con CREATE se guardan en la base de datos. Con MAKE solo se guardan en memoria
         //Creo y guardo las categorias
-        $categories = factory(Category::class, 5) -> create();
+        $categories = factory(Category::class, 4) -> create();
         //Realizo un loop en todas las categorias, utilizando cada una de ellas
         $categories -> each(function ($category){
             //Primero creo la cantidad de productos que asigno a cada categoria
-            $products = factory(Product::class, 20) -> make();
+            $products = factory(Product::class, 5) -> make();
             //Llamo a la funcion de productos desde la categoria y salvo la cantidad de productos creados anteriormente en dicha categoria
             $category->products()->saveMany($products);
 
             //Realizo el mismo procedimiento con los productos creados y las imagenes
             $products -> each(  function ($product){
-                $images = factory(ProductImage::class, 5) -> make();
+                $images = factory(ProductImage::class, 3) -> make();
                 $product->images()->saveMany($images);
             });          
         });
