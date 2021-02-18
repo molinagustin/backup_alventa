@@ -109,11 +109,14 @@
 
                     </table>
 
-                    <div class="text-center">
-                        <button class="btn btn-primary btn-round">
-                            <i class="material-icons">local_shipping</i> Realizar Pedido
-                        </button>
-                    </div>
+                    <form method="post" action="{{ url('/order') }}">
+                    @csrf
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-round">
+                                <i class="material-icons">local_shipping</i> Realizar Pedido
+                            </button>
+                        </div>
+                    </form>
 
                 </div>
 

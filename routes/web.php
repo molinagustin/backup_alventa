@@ -22,6 +22,8 @@ Route::get('/products/{id}', 'ProductController@show'); // Mostrar datos de un p
 Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');
 
+Route::post('/order', 'CartController@update');
+
 //Utilizamos un middleware para asociarlo a un grupo de rutas, de esta forma se aplicara a cualquier ruta dentro del grupo elegido
 //Para usar el prefijo 'admin' se le aplico un alias al AdminMiddleware.php en el archivo Kernel.php dentro de App\Http
 /*Route::middleware(['auth', 'admin'])->group(function () {
