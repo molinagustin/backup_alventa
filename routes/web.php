@@ -75,4 +75,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group
     Route::post('/products/{id}/images', 'ImageController@store'); //Para guardar las imagenes
     Route::delete('/products/{id}/images', 'ImageController@destroy'); //Para eliminar imagenes
     Route::get('/products/{id}/images/select/{image}', 'ImageController@select'); //Para destacar imagenes
+
+
+    //Rutas de Categorias. Usamos como parametros CATEGORY para los ID porque vamos a CASTEAR directamente sobre el metodo del controlador y deben llamarse igual a lo que espera el parametro dentro del metodo
+    Route::get('/categories', 'CategoryController@index'); // Listar categorias y acceder a modificar o eliminar
+    Route::get('/categories/create', 'CategoryController@create'); // Crear categoria
+    Route::post('/categories', 'CategoryController@store'); // Guardar el registro de una categoria
+    Route::get('/categories/{category}/edit', 'CategoryController@edit'); // Mostrar datos de un categoria
+    Route::post('/categories/{category}/edit', 'CategoryController@update'); // Guardar los cambios de la categoria
+    //Al usar el metodo DELETE, explicitamente estamos indicando que queremos borrar algo, por eso no lleva la palabar DELETE en la URL
+    Route::delete('/categories/{category}', 'CategoryController@destroy');
 });

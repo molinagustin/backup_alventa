@@ -30,7 +30,7 @@
   <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="navbar-translate">
       <a class="navbar-brand" href="{{url('/')}}">
-        LOGO INICIO </a>
+        ALVENTA LOGO </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,8 @@
             <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
 
             @if (auth()->user()->rol->id == 1)
-            <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>
+            <a class="dropdown-item" href="{{ url('admin\categories') }}">Gestionar Categorías</a>
+            <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>            
             @endif
 
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
