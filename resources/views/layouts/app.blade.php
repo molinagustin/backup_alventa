@@ -112,6 +112,8 @@
   <!--  Google Maps Plugin    -->
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('js/material-kit.js?v=2.0.7')}}" type="text/javascript"></script>
+
+  @yield('scripts')
 </body>
 
 </html>

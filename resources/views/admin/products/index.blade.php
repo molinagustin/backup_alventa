@@ -58,7 +58,7 @@
                     <!--<input type="hidden" name="_method" value="DELETE">
                     el @method('DELETE') es equivalente al INPUT HIDDEN-->
 
-                    <a href="" rel="tooltip" data-placement="right" title="Ver Detalles" class="btn btn-info btn-simple btn-xs">
+                    <a href="{{ url('/products/' . $product->id) }}" rel="tooltip" data-placement="right" title="Ver Detalles" class="btn btn-info btn-simple btn-xs" target="_blank">
                       <i class="fa fa-info-circle"></i>
                     </a>
                     <a href="{{ url('/admin/products/'.$product->id.'/edit') }}" rel="tooltip" data-placement="right" title="Editar" class="btn btn-success btn-simple btn-xs">

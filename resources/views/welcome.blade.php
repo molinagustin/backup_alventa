@@ -6,11 +6,57 @@
 
 @section ('styles')
 <!--Para las veces que haga falta podemos cargar estilos desde una seccion y se aplicaran en APP.blade-->
-  <style>
-    .links-paginate{
-      display: inline-block;
-    }
-  </style>
+<style>
+  .links-paginate {
+    display: inline-block;
+  }
+
+  .btn_ctm {
+    padding: 5px 5px;
+  }
+
+  .tt-query {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+
+  .tt-hint {
+    color: #999
+  }
+
+  .tt-menu {
+    /* used to be tt-dropdown-menu in older versions */
+    width: 422px;
+    margin-top: 4px;
+    padding: 4px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  }
+
+  .tt-suggestion {
+    padding: 3px 20px;
+    line-height: 24px;
+  }
+
+  .tt-suggestion.tt-cursor,
+  .tt-suggestion:hover {
+    color: #fff;
+    background-color: #0097cf;
+
+  }
+
+  .tt-suggestion p {
+    margin: 0;
+  }
+</style>
 @endsection
 
 @section('content')
@@ -80,35 +126,45 @@
       </div>
     </div>
     <div class="section text-center">
-      <h2 class="title">Productos Disponíbles</h2>
+      <h2 class="title">Categorías Disponibles</h2>
+      <br>
+
+      <div class="col-md-4 offset-4">
+        <form method="get" action="{{ url('/search') }}" target="_blank">
+
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="material-icons">search</i>
+            </span>
+            <input type="text" class="form-control text-center" placeholder="¿Qué producto es el que buscas?" name="query" id="search">
+            <button type="submit" class="btn btn_ctm btn-primary">Buscar</button>
+          </div>
+
+        </form>
+      </div>
+
       <div class="team">
         <div class="row">
-          @foreach($products as $product)
+          @foreach($categories as $category)
 
           <div class="col-md-4">
             <div class="team-player">
               <div class="card card-plain">
                 <div class="col-md-6 ml-auto mr-auto">
-                  <img src="{{ asset($product->featured_image_url) }}" alt="Thumbnail Image" class="img-raised rounded-circle img-fluid">
+                  <img src="{{ asset($category->featured_image_url) }}" alt="Imagen representativa de la categoría {{ $category->name }}" class="img-raised rounded-circle img-fluid">
                 </div>
                 <h4 class="card-title">
-                <a href="{{ url('/products/'.$product->id) }}">{{$product -> name}}</a>
-                  <br>
-                  <small class="card-description text-muted">{{$product->category->name}}</small>
+                  <a href="{{ url('/categories/'.$category->id) }}">{{$category -> name}}</a>
                 </h4>
                 <div class="card-body">
-                  <p class="card-description">{{$product -> description}}</p>
+                  <p class="card-description">{{$category -> description}}</p>
                 </div>
-               
+
               </div>
             </div>
           </div>
 
           @endforeach
-        </div>
-
-        <div class="row links-paginate"> <!--Tambien se puede aplicar el estilo text-center solamente ya que no es necesario el row, pero lo dejo para ocular la seccion STYLE de la parte superior-->
-          {{ $products->links() }}
         </div>
 
       </div>
@@ -155,4 +211,37 @@
 
 @include('includes.footer')
 
+@endsection
+
+@section('scripts')
+<!--	Plugin para el buscador predictivo -->
+<script src="{{asset('js\plugins\typeahead.bundle.min.js')}}" type="text/javascript"></script>
+
+<!--Ahora hay que inicializar el script sobre el INPUT con ID search-->
+<script>
+  $(function() {
+
+    //Se debe inicializar el elemento que se pasa como parametro PRODUCTS que viene a ser la fuente SOURCE (CODIGO COPIADO DESDE EL EJEMPLO PORQUE UTILIZA EL MOTOR DE BUSQUEDA)
+    var products = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      //Se define un arreglo si queremos una busqueda acotada en determinados elementos
+      //local: ['hola', 'prueba1', 'prueba2', 'abcdwq']
+
+      //Como se quiere utilizar una lista de productos que va a cambiar constantemente, se define un objeto JSON y se usa el atributo PREFETCH.
+      //Como usamos una base de datos, vamos a generar un objeto JSON a partir de los productos registrados. Es una ruta VER WEB.PHP
+      prefetch: '{{ url("/products/json") }}'
+    });
+
+    //Se selecciona el objeto con ID SEARCH y se le pasan 2 objetos por parametro.
+    $('#search').typeahead({
+      hint: true,
+      highlight: true,
+      minLength: 1
+    }, {
+      name: 'products',
+      source: products
+    });
+  });
+</script>
 @endsection

@@ -30,4 +30,13 @@ class Category extends Model
     Public function products(){
         return $this->hasMany(Product::class);
     }
+
+    //Accesor para la imagen
+    public function getFeaturedImageUrlAttribute()
+    {
+        //Obtenemos el primer producto de la lista de productos
+        //$featuredProduct = $this->products()->where('category_id', $id)->first();
+        $featuredProduct = $this->products()->first();        
+        return $featuredProduct->featured_image_url;
+    }
 }

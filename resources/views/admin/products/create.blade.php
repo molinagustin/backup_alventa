@@ -48,15 +48,30 @@
 
         </div>
 
-        <div class="form-group label-floating">
-          <label class="control-label">Breve Descripción del Producto</label>
-          <input type="text" class="form-control" name="description" value="{{ old('description') }}">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group label-floating">
+              <label class="control-label">Breve Descripción del Producto</label>
+              <input type="text" class="form-control" name="description" value="{{ old('description') }}">
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group label-floating">
+              <label class="control-label">Categoría del Producto</label>
+              <select class="form-control" name="category_id">
+                @foreach ($categories as $category)                
+                <option value="{{ $category->id }}" @if($category->name == "General") selected @endif>{{ $category->name }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
         </div>
 
         <textarea class="form-control" rows="3" name="long_description" placeholder="Descripción Completa del Producto">{{ old('long_description') }}</textarea>
         <div class="text-center">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{{ url('admin/products') }}" class="btn btn-default">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <a href="{{ url('admin/products') }}" class="btn btn-default">Cancelar</a>
         </div>
       </form>
 

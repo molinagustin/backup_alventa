@@ -17,7 +17,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
+Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME
+
+//IMPORTANTE => TENER CUIDADO AL MOMENTO DE DEFINIR RUTAS CON EL MISMO NOMBRE, COMO PRODUCTS, PORQUE EN EL ORDEN EN QUE SE COLOQUEN EN ESTE ARCHIVO
+//SERA LA PRIORIDAD DE COMO SE RESOLVERA. LA RUTA SUPERIOR /products/json SE RESUELVE ANTES QUE /products/{id}, PERO SI LAS COLOCO EN ORDEN DISTINTO
+//VA A HABER PROBLEMAS AL TRATAR DE INGRESAR A /products/json PORQUE EL OBJETO JSON QUE SE CREA EN ESTA RUTA SERA TOMADA POR EL {id} DE LA OTRA QUE ESTA SUPERIOR A ÉSTA
+//Route::get('/products/{id}', 'ProductController@show');
+//Route::get('/products/json', 'SearchController@data');
+
 Route::get('/products/{id}', 'ProductController@show'); // Mostrar datos de un producto a un usuario general
+Route::get('/categories/{category}', 'CategoryController@show'); //Mostrar los productos de una categoria
 
 Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');

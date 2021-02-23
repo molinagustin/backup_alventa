@@ -34,9 +34,13 @@ class Product extends Model
 
     }
 
-    //Relacion hacia el detalle del carro de compras
-    public function as()
+    //Accesor al nombre de la categoria
+    public function getCategoryNameAttribute()
     {
+        //Si existe la categoria, devuelvo su nombre, sino retorno un GENERAL simplemente
+        if($this->category)
+            return $this->category->name;
 
+        return 'General';
     }
 }
