@@ -9,6 +9,12 @@ use App\CartDetail;
 
 class CartDetailController extends Controller
 {
+    //Definimos un constructor, para que en caso de que el usuario no este autenticado, se encargue el middleware de redirigir al usuario hacia el login
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request)
     {
         $cartDetail = new CartDetail();

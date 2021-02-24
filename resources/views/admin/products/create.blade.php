@@ -60,7 +60,7 @@
             <div class="form-group label-floating">
               <label class="control-label">Categoría del Producto</label>
               <select class="form-control" name="category_id">
-                @foreach ($categories as $category)                
+                @foreach ($categories as $category)
                 <option value="{{ $category->id }}" @if($category->name == "General") selected @endif>{{ $category->name }}</option>
                 @endforeach
               </select>

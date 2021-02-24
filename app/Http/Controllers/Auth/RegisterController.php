@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
+use Illuminate\Http\Request as Req;
 
 class RegisterController extends Controller
 {
@@ -68,6 +71,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'phone' => $data['phone'],
+            'address' => $data['address']
         ]);
+    }
+
+    //Este metodo es una sobreescritura del metodo original (polimorfismo) ya que lo sobreescribimos para introducir en el registro los datos del nombre y correo del futuro usuario. No hace falta crear una ruta porque laravel ya la tiene en sus archivos Vendor y podemos llamar el metodo desde /register
+    public function showRegistrationForm(Req $request)
+    {
+        $name = $request->input('name');
+        $email = $request->input('email');
+        return view('auth.register')->with(compact('name', 'email'));
     }
 }

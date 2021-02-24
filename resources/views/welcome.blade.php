@@ -172,34 +172,35 @@
     <div class="section section-contacts">
       <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
-          <h2 class="text-center title">¿Dudas? Contáctanos</h2>
-          <h4 class="text-center description">No hace falta que cuentes con un usuario para preguntarnos, pero si te registras podrás acceder al chat en línea con uno de nuestros agentes.</h4>
-          <form class="contact-form">
+          <h2 class="text-center title">¿Todavía no te has registrado? Es muy simple.</h2>
+          <h4 class="text-center description">Solo necesitamos unos pocos datos y tendrás tu usuario listo.</h4>
+
+          <form class="contact-form" method="get" action="/register">
+
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="bmd-label-floating">Nombre</label>
-                  <input type="email" class="form-control">
+                  <input type="text" class="form-control" name="name">
                 </div>
               </div>
+
               <div class="col-md-6">
                 <div class="form-group">
                   <label class="bmd-label-floating">Correo Electrónico</label>
-                  <input type="email" class="form-control">
+                  <input type="email" class="form-control" name="email">
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label for="exampleMessage" class="bmd-label-floating">Tu Mensaje</label>
-              <textarea type="email" class="form-control" rows="4" id="exampleMessage"></textarea>
-            </div>
+            
             <div class="row">
               <div class="col-md-4 ml-auto mr-auto text-center">
-                <button class="btn btn-primary btn-raised">
-                  Enviar Mensaje
+                <button type="submit" class="btn btn-primary btn-raised">
+                  Iniciar Registro
                 </button>
               </div>
             </div>
+
           </form>
         </div>
       </div>
