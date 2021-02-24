@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     //Para enlazar con categorias y obtener la categoria de un producto que va a ser 1 sola
-    Public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
     //Para obtener todos los productos a partir de una imagen del mismo
-    public function images(){
+    public function images()
+    {
         return $this->hasMany(ProductImage::class);
     }
 
@@ -22,23 +24,22 @@ class Product extends Model
         //Primero obtengo la primer imagen que tenga como condicion FEATURED o DESTACADA
         $featuredImage = $this->images()->where('featured', true)->first();
         //Si no hay una, busco la primera que encuentro
-        if (!$featuredImage)        
-            $featuredImage = $this->images()->first();        
+        if (!$featuredImage)
+            $featuredImage = $this->images()->first();
 
         //Si hay al menos una imagen, le devuelvo la URL a traves del campo calculado en ProductImage
-        if ($featuredImage)        
-            return $featuredImage->url;  
-                
-        //Si no hay una imagen, devuelve la url de la imagen por defecto
-        return '/images/products/default.png';
+        if ($featuredImage)
+            return $featuredImage->url;
 
+        //Si no hay una imagen, devuelve la url de la imagen por defecto
+        return '/images/default.png';
     }
 
     //Accesor al nombre de la categoria
     public function getCategoryNameAttribute()
     {
         //Si existe la categoria, devuelvo su nombre, sino retorno un GENERAL simplemente
-        if($this->category)
+        if ($this->category)
             return $this->category->name;
 
         return 'General';

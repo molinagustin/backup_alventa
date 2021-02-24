@@ -32,6 +32,7 @@
                 <th class="text-center">#</th>
                 <th class="col-auto">Nombre</th>
                 <th class="col-auto">Descripción</th>
+                <th>Imagen</th>
                 <th class="text-center">Opciones</th>
               </tr>
 
@@ -43,6 +44,7 @@
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
                 <td>{{$category->description}}</td>
+                <td><img src="{{ $category->featured_image_url }}" height="50"></td>
                 <td class="td-actions text-center">
 
                   <form method="post" action="{{ url('/admin/categories/'.$category->id) }}">
@@ -65,7 +67,7 @@
                       <i class="fa fa-times"></i>
                     </button>
                   </form>
-                  
+
                 </td>
               </tr>
               @endforeach

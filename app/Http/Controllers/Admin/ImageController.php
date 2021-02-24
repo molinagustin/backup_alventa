@@ -28,12 +28,12 @@ class ImageController extends Controller
         $file = $request->file('photo');
         $path = public_path() . '/images/products/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
         $fileName = uniqid() . $file->getClientOriginalName(); //Se guarda un nombre en el cual se genera un ID unico y se concatena con el nombre del archivo
-        
+
         //Redimensiono la imagen
         $moved = Image::make($file)
-                    ->resize(250, 250)
-                    ->save($path . $fileName);      
-        
+            ->resize(250, 250)
+            ->save($path . $fileName);
+
         //Se usa una variable intermedia porque en servidores como Linux, si no se cuenta con permisos apropiados a veces no crea la carpeta y si no lo verificamos antes de guardar la imagen en la BD, de igual forma se guardara a pesar de no tener carpeta
         //Esta forma es sin usar el Intervention Image para redimensionar la imagen, simplemente se guarda como viene
         //$moved = $file->move($path, $fileName); //Finalmente al archivo se lo guarda en la ruta con el nombre indicado
@@ -64,8 +64,7 @@ class ImageController extends Controller
         }
 
         //Eliminar la imagen de la BD si fue eliminada localmente o era una URL HTTP
-        if ($deleted == true) 
-        {
+        if ($deleted == true) {
             $productImage->delete();
         }
 
@@ -83,8 +82,8 @@ class ImageController extends Controller
         //Destacar la imagen seleccionada
         //Encuentra la imagen por el ID y le coloca el estado FEATURED
         $productImage = ProductImage::find($image);
-        $productImage -> featured = true;
-        $productImage -> save();
+        $productImage->featured = true;
+        $productImage->save();
 
         return back();
     }
@@ -94,9 +93,9 @@ class ImageController extends Controller
         //Realizo la validacion de los campos antes de proceder a guardar el producto
         $messages = [
             'photo.file' => 'El archivo no fue subido correctamente y no pudo guardarse.',
-            'photo.mimes' => 'Las extensiones validas para la imagen son JPEG, PNG, JPG, GIF y SVG.',          
-            'photo.max' => 'El archivo a cargar no puede superar los 2Mb.',          
-            'photo.dimensions' => 'La imagen debe contener dimensiones mayores a 100px y menores a 2048px.',          
+            'photo.mimes' => 'Las extensiones validas para la imagen son JPEG, PNG, JPG, GIF y SVG.',
+            'photo.max' => 'El archivo a cargar no puede superar los 2Mb.',
+            'photo.dimensions' => 'La imagen debe contener dimensiones mayores a 100px y menores a 2048px.',
         ];
 
         //Creo el array de las reglas de validacion que se corresponden al nombre de los campos a tratar

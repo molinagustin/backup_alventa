@@ -60,7 +60,7 @@
 
             <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
 
-            @if (auth()->user()->rol->id == 1)
+            @if (auth()->user()->rol->id == 1 || auth()->user()->rol->id == 2)
             <a class="dropdown-item" href="{{ url('admin\categories') }}">Gestionar Categorías</a>
             <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>            
             @endif

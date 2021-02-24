@@ -27,13 +27,13 @@
     <ul>
         @foreach($cart->details as $detail)
         <li>
-        <strong>{{ $detail->product->name }}</strong> x {{ $detail->quantity }} = <strong> (${{ $detail->quantity * $detail->product->price }})</strong>
+        <strong>{{ $detail->product->name }}</strong> x {{ $detail->quantity }} = <strong> ($ {{ $detail->quantity * $detail->product->price }})</strong>
         </li>
         @endforeach
     </ul>
 
     <p>
-    <strong>El importe total a pagar es: </strong> ${{ $cart->total }}
+    <strong>El importe total a pagar es: </strong> $ {{ $cart->total }}
     </p>
     <hr>
 

@@ -110,7 +110,7 @@
                     </table>
 
                     @if(auth()->user()->cart->total > 0)
-                    <p><b>Importe total a pagar: </b> ${{ auth()->user()->cart->total }}</p>
+                    <p><b>Importe total a pagar: </b> $ {{ auth()->user()->cart->total }}</p>
                     @endif
 
                     <form method="post" action="{{ url('/order') }}">

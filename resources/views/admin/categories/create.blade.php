@@ -27,7 +27,7 @@
         </ul>
       </div>
       @endif
-      <form method="post" action="{{url('/admin/categories')}}">
+      <form method="post" action="{{url('/admin/categories')}}" enctype="multipart/form-data">
         @csrf
 
         <div class="row">
@@ -37,15 +37,22 @@
               <label class="control-label">Nombre de la Categoría</label>
               <input type="text" class="form-control" name="name" value="{{ old('name') }}">
             </div>
-          </div>          
+          </div>
+
+          <div class="col-sm-6">
+            <div class="label-floating">
+              <label class="control-label">Imagen de la Categoría</label>
+            </div>
+            <input type="file" name="image">
+          </div>
 
         </div>
 
         <textarea class="form-control" rows="3" name="description" placeholder="Descripción de la Categoría">{{ old('description') }}</textarea>
 
         <div class="text-center">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{{ url('admin/categories') }}" class="btn btn-default">Cancelar</a>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+          <a href="{{ url('admin/categories') }}" class="btn btn-default">Cancelar</a>
         </div>
       </form>
 
