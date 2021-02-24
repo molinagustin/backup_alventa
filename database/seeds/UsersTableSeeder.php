@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'agustin',
-            'email' => 'agustin@hotmail.com',
+            'name' => 'Agustin Molina',
+            'email' => 'molinagustin@hotmail.com',
             //Las contaseñas en Laravel deben estar encriptadas siempre. Usamos un helper para eso
             'password' => bcrypt('123456789'),
             'rol_id' => '1'

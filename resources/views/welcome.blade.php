@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section ('tittle', 'Bienvenido a AlVenta')
+@section ('tittle', 'Bienvenido a ' . config('app.name'))
 
 @section ('body-class', 'landing-page sidebar-collapse')
 
@@ -66,7 +66,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1 class="title">AlVENTA</h1>
+        <h1 class="title">{{ config('app.name') }}</h1>
         <h4>Compra Venta de nuevos y usados en General Alvear</h4>
         <br>
         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-danger btn-raised btn-lg">

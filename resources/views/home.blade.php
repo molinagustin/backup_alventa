@@ -109,8 +109,12 @@
 
                     </table>
 
+                    @if(auth()->user()->cart->total > 0)
+                    <p><b>Importe total a pagar: </b> ${{ auth()->user()->cart->total }}</p>
+                    @endif
+
                     <form method="post" action="{{ url('/order') }}">
-                    @csrf
+                        @csrf
                         <div class="text-center">
                             <button class="btn btn-primary btn-round">
                                 <i class="material-icons">local_shipping</i> Realizar Pedido

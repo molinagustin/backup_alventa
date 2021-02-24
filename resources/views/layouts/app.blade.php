@@ -30,7 +30,7 @@
   <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="navbar-translate">
       <a class="navbar-brand" href="{{url('/')}}">
-        ALVENTA LOGO </a>
+        ALVENTA LOGO {{ config('app.name' )}}</a><!--Por medio del metodo config obtenemos el nombre de la aplicacion que esta en el archivo .env-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
