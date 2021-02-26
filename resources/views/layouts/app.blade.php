@@ -3,8 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
-  <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
+  <link rel="icon" type="image/png" href="{{asset('img/alventa_icon.png')}}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title> @yield('tittle', 'AlVenta, tu lugar de intercambios')
 
@@ -30,7 +29,8 @@
   <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="navbar-translate">
       <a class="navbar-brand" href="{{url('/')}}">
-        ALVENTA LOGO {{ config('app.name' )}}</a><!--Por medio del metodo config obtenemos el nombre de la aplicacion que esta en el archivo .env-->
+        <img src="img\alventa_logo.png" height="50">
+      </a><!--Por medio del metodo config('app.name') obtenemos el nombre de la aplicacion que esta en el archivo .env-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
@@ -76,22 +76,7 @@
           </div>
         </li>
         @endguest
-
-        <!--         <li class="nav-item">
-          <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter" rel="nofollow">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank" data-original-title="Like us on Facebook" rel="nofollow">
-            <i class="fa fa-facebook-square"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank" data-original-title="Follow us on Instagram" rel="nofollow">
-            <i class="fa fa-instagram"></i>
-          </a>
-        </li> -->
+        
       </ul>
     </div>
   </nav>

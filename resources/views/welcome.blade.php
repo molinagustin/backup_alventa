@@ -56,6 +56,10 @@
   .tt-suggestion p {
     margin: 0;
   }
+
+  .product-name {
+    margin-bottom: 0em;
+  }
 </style>
 @endsection
 
@@ -69,7 +73,7 @@
         <h1 class="title">{{ config('app.name') }}</h1>
         <h4>Compra Venta de nuevos y usados en General Alvear</h4>
         <br>
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-danger btn-raised btn-lg">
+        <a href="#" class="btn btn-danger btn-raised btn-lg">
           <i class="fa fa-play"></i> ¿Cómo Funciona?
         </a>
       </div>
@@ -126,48 +130,51 @@
       </div>
     </div>
     <div class="section text-center">
-      <h2 class="title">Categorías Disponibles</h2>
+
+      <h2 class="title">Puede que te interese alguno de éstos productos</h2>
       <br>
+      <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
 
-      <div class="col-md-4 offset-4">
-        <form method="get" action="{{ url('/search') }}" target="_blank">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselIndicators" data-slide-to="2"></li>
+        </ol>
 
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="material-icons">search</i>
-            </span>
-            <input type="text" class="form-control text-center" placeholder="¿Qué producto es el que buscas?" name="query" id="search">
-            <button type="submit" class="btn btn_ctm btn-primary">Buscar</button>
-          </div>
-
-        </form>
-      </div>
-
-      <div class="team">
-        <div class="row">
-          @foreach($categories as $category)
-
-          <div class="col-md-4">
-            <div class="team-player">
-              <div class="card card-plain">
-                <div class="col-md-6 ml-auto mr-auto">
-                  <img src="{{ asset($category->featured_image_url) }}" alt="Imagen representativa de la categoría {{ $category->name }}" class="img-raised rounded-circle img-fluid">
-                </div>
-                <h4 class="card-title">
-                  <a href="{{ url('/categories/'.$category->id) }}">{{$category -> name}}</a>
-                </h4>
-                <div class="card-body">
-                  <p class="card-description">{{$category -> description}}</p>
-                </div>
-
-              </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img class="d-block w-100" src="{{ $products[0]->featured_image_url }}" alt="First slide" height="400" width="500">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="product-name btn btn-info btn-round btn-sm"><a href="{{ url('/products/' . $products[0]->id) }}" style="color: white;">{{ $products[0]->name }}</a></h5>
             </div>
           </div>
-
-          @endforeach
+          <div class="carousel-item">
+            <img class="d-block w-100" src="{{ $products[1]->featured_image_url }}" alt="Second slide" height="400" width="500">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="product-name btn btn-info btn-round btn-sm"><a href="{{ url('/products/' . $products[1]->id) }}" style="color: white;">{{ $products[1]->name }}</a></h5>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img class="d-block w-100" src="{{ $products[2]->featured_image_url }}" alt="Third slide" height="400" width="500">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="product-name btn btn-info btn-round btn-sm"><a href="{{ url('/products/' . $products[2]->id) }}" style="color: white;">{{ $products[2]->name }}</a></h5>
+            </div>
+          </div>
         </div>
-
+        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
+
+      <h4>O revisa nuestras <a class="btn-link" href="{{ url('/categories') }}">categorías</a></h4>
+
+
+
     </div>
     <div class="section section-contacts">
       <div class="row">
@@ -192,7 +199,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-4 ml-auto mr-auto text-center">
                 <button type="submit" class="btn btn-primary btn-raised">

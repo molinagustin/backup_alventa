@@ -31,7 +31,7 @@ class ImageController extends Controller
 
         //Redimensiono la imagen
         $moved = Image::make($file)
-            ->resize(250, 250)
+            ->resize(500, 400)//El primer parametro es WIDTH y el segundo HEIGHT
             ->save($path . $fileName);
 
         //Se usa una variable intermedia porque en servidores como Linux, si no se cuenta con permisos apropiados a veces no crea la carpeta y si no lo verificamos antes de guardar la imagen en la BD, de igual forma se guardara a pesar de no tener carpeta

@@ -4359,7 +4359,7 @@ tbody.collapse.show {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 1rem;
+  /*padding: 0.5rem 1rem;*/
 }
 
 .navbar>.container,
@@ -4372,7 +4372,7 @@ tbody.collapse.show {
 
 .navbar-brand {
   display: inline-block;
-  padding-top: 0.3125rem;
+  /*padding-top: 0.3125rem;*/
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
@@ -6220,6 +6220,8 @@ button.close {
 
 .carousel {
   position: relative;
+  width: 50%;
+  margin: auto;
 }
 
 .carousel-inner {
@@ -14658,7 +14660,8 @@ textarea {
   /* padding: 0.625rem 0; */
   margin-bottom: 20px;
   color: #555;
-  background-color: #ffffff !important;
+  /*background-color: #ffffff !important;*/
+  background-color: #3c8486d6 !important;
   box-shadow: 0 4px 18px 0px rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15);
 }
 
@@ -14679,10 +14682,10 @@ textarea {
 
 .navbar .navbar-nav .nav-item .nav-link {
   position: relative;
-  color: inherit;
-  padding: 0.9375rem;
+  color: white;
+  padding-right: 35px;
   font-weight: 400;
-  font-size: 12px;
+  /*font-size: 12px;*/
   text-transform: uppercase;
   border-radius: 3px;
   line-height: 20px;
@@ -14775,11 +14778,11 @@ textarea {
 
 .navbar .navbar-brand {
   position: relative;
-  color: inherit;
+  color: white;
   height: 50px;
   font-size: 1.125rem;
   line-height: 30px;
-  /* padding: 0.625rem 0; */
+  padding-left: 35px;
 }
 
 .navbar.bg-primary {

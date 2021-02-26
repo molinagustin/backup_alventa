@@ -27,6 +27,7 @@ Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un 
 //Route::get('/products/json', 'SearchController@data');
 
 Route::get('/products/{id}', 'ProductController@show'); // Mostrar datos de un producto a un usuario general
+Route::get('/categories', 'CategoryController@index'); //Muestra el listado de categorias disponibles
 Route::get('/categories/{category}', 'CategoryController@show'); //Mostrar los productos de una categoria
 
 Route::post('/cart', 'CartDetailController@store');
