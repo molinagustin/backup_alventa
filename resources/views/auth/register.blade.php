@@ -2,8 +2,28 @@
 
 @section ('body-class', 'login-page sidebar-collapse')
 
+@section ('styles')
+<style>
+    .hide {
+        visibility: hidden;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: content-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: content-box;
+    }
+</style>
+@endsection
+
 @section('content')
-<div class="header header-filter" style="background-image: url('{{ asset('img/bg7.jpg') }}'); background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: inherit;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 ml-auto mr-auto">

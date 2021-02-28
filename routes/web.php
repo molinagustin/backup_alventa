@@ -16,6 +16,7 @@ Route::get('/', 'TestController@welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/cart', 'HomeController@cart');
 
 Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
 Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME
@@ -28,7 +29,8 @@ Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un 
 
 Route::get('/products/{id}', 'ProductController@show'); // Mostrar datos de un producto a un usuario general
 Route::get('/categories', 'CategoryController@index'); //Muestra el listado de categorias disponibles
-Route::get('/categories/{category}', 'CategoryController@show'); //Mostrar los productos de una categoria
+//Route::get('/categories/{category}', 'CategoryController@show'); //Mostrar los productos de una categoria
+Route::get('/categories/{category}', 'CategoryController@show');
 
 Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');

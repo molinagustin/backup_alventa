@@ -94,13 +94,13 @@ class ImageController extends Controller
         $messages = [
             'photo.file' => 'El archivo no fue subido correctamente y no pudo guardarse.',
             'photo.mimes' => 'Las extensiones validas para la imagen son JPEG, PNG, JPG, GIF y SVG.',
-            'photo.max' => 'El archivo a cargar no puede superar los 2Mb.',
-            'photo.dimensions' => 'La imagen debe contener dimensiones mayores a 100px y menores a 2048px.',
+            'photo.max' => 'El archivo a cargar no puede superar los 5Mb.',
+            'photo.dimensions' => 'La imagen debe contener dimensiones mayores a 100px y menores a 5120px.',
         ];
 
         //Creo el array de las reglas de validacion que se corresponden al nombre de los campos a tratar
         $rules = [
-            'photo' => 'file|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=2048,max_height=2048',
+            'photo' => 'file|mimes:jpeg,png,jpg,gif,svg|max:5120|dimensions:min_width=100,min_height=100,max_width=5120,max_height=5120',
         ];
         $this->validate($request, $rules, $messages);
     }

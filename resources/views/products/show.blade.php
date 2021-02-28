@@ -20,10 +20,8 @@
                         </div>
                         <div class="name">
                             <h3 class="title">{{ $product->name }}</h3>
+                            <h3 class="title">$ {{ $product->price }}</h3>
                             <h6>{{ $product->category->name }}</h6>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
                         </div>
                     </div>
                 </div>
@@ -61,7 +59,7 @@
             <div class="text-center">
                 <!-- data-toggle y data-target son lo que enlazan el boton con el div modal -->
                 <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalAddToCart"><i class="material-icons">add_shopping_cart</i>Agregar al Carro</button>
-                <a href="{{url('/')}}" class="btn btn-default btn-round">Volver</a>
+                <a href="{{url('/categories/' . $product->category->id)}}" class="btn btn-default btn-round">Volver</a>
             </div>
 
             <div class="card-footer justify-content-center text-center">

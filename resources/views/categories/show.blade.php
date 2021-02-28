@@ -20,9 +20,7 @@
                         </div>
                         <div class="name">
                             <h3 class="title">{{ $category->name }}</h3>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"><i class="fa fa-dribbble"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#pablo" class="btn btn-just-icon btn-link btn-pinterest"><i class="fa fa-pinterest"></i></a>
+                            <h5 class="title">{{ $category->description }}</h5>
                         </div>
                     </div>
                 </div>
@@ -74,37 +72,6 @@
             </div>
 
 
-
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalAddToCart" tabindex="-1" role="dialog" aria-labelledby="modalAddToCartHeader" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAddToCartHeader">Seleccione la cantidad a comprar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <form method="post" action="{{ url('/cart') }}">
-                @csrf
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                <div class="modal-body">
-                    <h6>Cantidad</h6>
-                    <input type="number" name="quantity" value="1" min="1">
-                    <button type="submit" class="btn btn-success">Añadir</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                </div>
-
-                <!-- <div class="modal-footer">
-                </div> -->
-            </form>
 
         </div>
     </div>

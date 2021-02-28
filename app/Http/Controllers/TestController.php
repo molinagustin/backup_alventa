@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -14,6 +15,8 @@ class TestController extends Controller
        
        $products = Product::latest()->take(3)->get();
        //dd($products);
+       //Obtengo las categorias para el Dropdown Menu
+       //$categories = Category::orderBy('name')->get();
 
        //Cuando devuelve la vista, le agrega los productos. Con "compact" se envia todo el arreglo directamente sin tener que crearlo manualmente
        return view('welcome')->with(compact('products')); 

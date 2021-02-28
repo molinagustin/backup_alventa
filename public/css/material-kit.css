@@ -2345,6 +2345,10 @@ pre code {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.form-control .customSearch {
+  height: 0px;
+}
+
 .form-control::-ms-expand {
   background-color: transparent;
   border: 0;
@@ -12900,8 +12904,8 @@ fieldset[disabled] .is-focused .switch label:focus {
 }
 
 .form-control,
-.is-focused .form-control {
-  background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+.is-focused .form-control .customSearch{
+  background-image: linear-gradient(to top, #9c27b0 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);  
 }
 
 .form-control:invalid {
@@ -14570,7 +14574,7 @@ textarea {
 }
 
 .list-group-item {
-  display: flex;
+  /*display: flex;*/
   flex-flow: row wrap;
   align-items: center;
   padding: 1rem;
@@ -14907,8 +14911,8 @@ textarea {
 .navbar.navbar-transparent {
   background-color: transparent !important;
   box-shadow: none;
-  padding-top: 25px;
-  color: #ffffff;
+  padding-top: 15px;
+  /*color: #ffffff;*/
 }
 
 #navbar .navbar {
@@ -15997,7 +16001,7 @@ h2.title {
 .dropdown-menu a:focus,
 .dropdown-menu a:active {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
-  background-color: #9c27b0;
+  background-color: rgb(41 146 137);
   color: #fff !important;
 }
 
@@ -17395,7 +17399,8 @@ footer .pull-center {
 .login-page .footer {
   position: absolute;
   width: 100%;
-  background: transparent;
+  /*background: transparent;*/
+  background: radial-gradient(#21a27d, #245157);
   bottom: 0;
   color: #ffffff;
   z-index: 2;

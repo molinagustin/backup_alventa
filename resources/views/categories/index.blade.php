@@ -15,21 +15,7 @@
 
 
             <h2 class="title">Categorías Disponibles</h2>
-            <br>
-
-            <div class="col-md-4 offset-4">
-                <form method="get" action="{{ url('/search') }}" target="_blank">
-
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="material-icons">search</i>
-                        </span>
-                        <input type="text" class="form-control text-center" placeholder="¿Qué producto es el que buscas?" name="query" id="search">
-                        <button type="submit" class="btn btn_ctm btn-primary">Buscar</button>
-                    </div>
-
-                </form>
-            </div>
+            <br>           
 
             <div class="team">
                 <div class="row">

@@ -2,12 +2,44 @@
 
 @section ('body-class', 'login-page sidebar-collapse')
 
+@section ('styles')
+<style>
+    .hide {
+        visibility: hidden;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: content-box;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: content-box;
+    }
+</style>
+@endsection
+
 @section('content')
-<div class="header header-filter" style="background-image: url('{{ asset('img/bg7.jpg') }}'); background-size: cover; background-position: top center;">
+<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: inherit;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                 <div class="card card-login">
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>
+                                {{$error}}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
                     <form class="form" method="POST" action="{{ route('login') }}">
                         @csrf
@@ -44,8 +76,8 @@
                                     </span>
                                 </div>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
-                            </div>
-
+                            </div>                            
+                            <br>
                             <div class="checkbox text-center">
                                 <label style="padding-top: 20px;">
                                     <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -54,11 +86,13 @@
                             </div>
 
                         </div>
+                        
 
                         <div class="text-center">
                             <br>
                             <button type="submit" class="btn btn-primary btn-link btn-wd btn-lg">INGRESAR</button>
                         </div>
+                        <br><br><br><br><br><br><br><br><br><br>
 
 
                         <!-- <a class="btn btn-link" href="{{ route('password.request') }}">

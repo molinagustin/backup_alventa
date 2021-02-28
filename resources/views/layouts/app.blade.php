@@ -18,19 +18,96 @@
   <!-- CSS Files -->
   <link href="{{asset('css/material-kit.css?v=2.0.7')}}" rel="stylesheet" />
 
+  <!--Estilos del buscador-->
+  <style>
+    .btn_ctm {
+      padding: 5px 5px;
+    }
+
+    .tt-query {
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    }
+
+    .tt-hint {
+      color: #999
+    }
+
+    .tt-menu {
+      /* used to be tt-dropdown-menu in older versions */
+      width: 345px;
+      margin-top: 4px;
+      padding: 4px 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+      -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+
+    .tt-suggestion {
+      padding: 3px 20px;
+      line-height: 24px;
+    }
+
+    .tt-suggestion.tt-cursor,
+    .tt-suggestion:hover {
+      color: #fff;
+      background-color: #0097cf;
+
+    }
+
+    .tt-suggestion p {
+      margin: 0;
+    }
+
+    #lblCartCount {
+      font-size: 15px;
+      background: #ff0000;
+      color: #fff;
+      padding: 0 5px;
+      vertical-align: top;
+      margin-left: -4px;
+    }
+
+    .badge {
+      padding-left: 9px;
+      padding-right: 9px;
+      -webkit-border-radius: 9px;
+      -moz-border-radius: 9px;
+      border-radius: 9px;
+      margin-top: -17px;
+    }
+
+    .label-warning[href],
+    .badge-warning[href] {
+      background-color: #c67605;
+    }
+  </style>
   <!--Estilos de Welcome.Blade.php-->
   @yield('styles')
 
 </head>
 
 <body class="@yield('body-class')">
+  <?php
 
+  use App\Category;
+  //El metodo HAS es un SQL JOIN en donde se establece que busque las categorias que tengan productos
+  $categories = Category::has('products')->orderBy('name')->get();
+  ?>
 
   <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
     <div class="navbar-translate">
       <a class="navbar-brand" href="{{url('/')}}">
-        <img src="img\alventa_logo.png" height="50">
-      </a><!--Por medio del metodo config('app.name') obtenemos el nombre de la aplicacion que esta en el archivo .env-->
+        <img src="{{ asset('img\alventa_logo.png') }}" height="50">
+      </a>
+      <!--Por medio del metodo config('app.name') obtenemos el nombre de la aplicacion que esta en el archivo .env-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
@@ -38,8 +115,43 @@
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
+
+    <!--Categorias-->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item dropdown">
+        <a id="navbarDropdownCategories" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+          Categorías <span class="caret"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCategories">
+          @foreach($categories as $category)
+          <a class="dropdown-item" href="{{ url('/categories/' . $category->id) }}" target="_blank">{{ $category->name }}</a>
+          @endforeach
+        </div>
+      </li>
+    </ul>
+
+
+    <!--BUSCADOR CENTRAL-->
+    <div class="col-sm-4 hide" style="margin-left: 27em;">
+      <form method="get" action="{{ url('/search') }}" target="_blank">
+
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="material-icons" style="color: white;">search</i>
+          </span>
+          <input type="text" class="form-control text-center" placeholder="¿QUÉ PRODUCTO BUSCAS?" name="query" id="search" style="height: 2em; background-image: linear-gradient(to top, #37bdb2 4px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px); width: 20em; background-color: white; border-radius: 20em;">
+          <button type="submit" class="btn btn_ctm btn-link" style="color: white; border-color:white; border:solid; border-radius:20em;">Buscar</button>
+        </div>
+
+      </form>
+    </div>
+
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
+        <i class="fa ml-auto" style="font-size:35px; color:white;"><a href="{{ url('/home/cart') }}" style="color: white;">&#xf07a;</a></i>
+        <span class='badge badge-warning' id='lblCartCount'> {{Auth::user() ? Auth::user()->cart->details->count() : '0'}} </span>      
+
+      <ul class="navbar-nav">
         @guest
         <li class="nav-item">
           <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
@@ -62,7 +174,7 @@
 
             @if (auth()->user()->rol->id == 1 || auth()->user()->rol->id == 2)
             <a class="dropdown-item" href="{{ url('admin\categories') }}">Gestionar Categorías</a>
-            <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>            
+            <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>
             @endif
 
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -76,7 +188,7 @@
           </div>
         </li>
         @endguest
-        
+
       </ul>
     </div>
   </nav>
@@ -98,7 +210,38 @@
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="{{asset('js/material-kit.js?v=2.0.7')}}" type="text/javascript"></script>
 
-  @yield('scripts')
+
+  <!--PARA EL BUSCADOR PREDICTIVO-->
+  <!--	Plugin para el buscador predictivo -->
+  <script src="{{asset('js\plugins\typeahead.bundle.min.js')}}" type="text/javascript"></script>
+
+  <!--Ahora hay que inicializar el script sobre el INPUT con ID search-->
+  <script>
+    $(function() {
+
+      //Se debe inicializar el elemento que se pasa como parametro PRODUCTS que viene a ser la fuente SOURCE (CODIGO COPIADO DESDE EL EJEMPLO PORQUE UTILIZA EL MOTOR DE BUSQUEDA)
+      var products = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        //Se define un arreglo si queremos una busqueda acotada en determinados elementos
+        //local: ['hola', 'prueba1', 'prueba2', 'abcdwq']
+
+        //Como se quiere utilizar una lista de productos que va a cambiar constantemente, se define un objeto JSON y se usa el atributo PREFETCH.
+        //Como usamos una base de datos, vamos a generar un objeto JSON a partir de los productos registrados. Es una ruta VER WEB.PHP
+        prefetch: '{{ url("/products/json") }}'
+      });
+
+      //Se selecciona el objeto con ID SEARCH y se le pasan 2 objetos por parametro.
+      $('#search').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+      }, {
+        name: 'products',
+        source: products
+      });
+    });
+  </script>
 </body>
 
 </html>

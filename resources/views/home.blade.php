@@ -25,16 +25,18 @@
 
             <ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#dashboard" role="tab" data-toggle="tab">
+                    <a class="nav-link {{ $cart ? '' : 'active' }}" href="#dashboard" role="tab" data-toggle="tab">
                         <i class="material-icons">dashboard</i>
                         Resumen
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#shopping_cart" role="tab" data-toggle="tab">
+
+                    <a class="nav-link {{ $cart ? 'active' : '' }}" href="#shopping_cart" role="tab" data-toggle="tab">
                         <i class="material-icons">shopping_cart</i>
                         Carro de Compras
                     </a>
+
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#orders" role="tab" data-toggle="tab">
@@ -44,11 +46,11 @@
                 </li>
             </ul>
             <div class="tab-content tab-space">
-                <div class="tab-pane active" id="dashboard">
+                <div class="tab-pane {{ $cart ? '' : 'active' }}" id="dashboard">
 
                 </div>
 
-                <div class="tab-pane" id="shopping_cart">
+                <div class="tab-pane {{ $cart ? 'active' : '' }}" id="shopping_cart">
                     <hr>
                     <p>Tienes <b>{{ auth()->user()->cart->details->count() }}</b> productos en tu carro de compras.</p>
                     <table class="table">
@@ -111,7 +113,6 @@
 
                     @if(auth()->user()->cart->total > 0)
                     <p><b>Importe total a pagar: </b> $ {{ auth()->user()->cart->total }}</p>
-                    @endif
 
                     <form method="post" action="{{ url('/order') }}">
                         @csrf
@@ -121,10 +122,57 @@
                             </button>
                         </div>
                     </form>
+                    @endif
 
                 </div>
 
                 <div class="tab-pane" id="orders">
+                    <h3 class="title">Compras</h3>
+
+                    <div class="row">
+                        @foreach($carts as $cart)
+                        @foreach($cart->details as $detail)
+                        <div class="col-md-4">
+                            <div class="card" style="width: 28rem; margin-top:30px;">
+                                <img class="card-img-top" src="{{ $detail->product->featured_image_url }}" alt="Imagen de Producto Comprado" height="400px" >
+                                <div class="card-body text-center" style="min-height: 150px;">
+                                    <h5 class="card-title">{{ $detail->product->name }}</h5>
+                                    <p class="card-text">{{ $detail->product->description }}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <li class="list-group-item">N° de Orden:</li>
+                                            <li class="list-group-item">Cantidad Comprada:</li>
+                                            <li class="list-group-item">Precio por Unidad:</li>
+                                            <li class="list-group-item">Fecha de Pedido:</li>
+                                            <li class="list-group-item">Estado:</li>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <b>
+                                                <li class="list-group-item">{{ $cart->id }}</li>
+                                                <li class="list-group-item">{{ $detail->quantity }} {{ $detail->quantity > 1 ? 'Unidades' : 'Unidad' }}</li>
+                                                <li class="list-group-item">$ {{ $detail->product->price }}</li>
+                                                <li class="list-group-item">{{ \Carbon\Carbon::parse($cart->order_date)->format('d/m/Y H:i:s') }}</li>
+                                                <li class="list-group-item" style="text-transform: uppercase;">{{ $cart->status->status }}</li>
+                                            </b>
+                                        </div>
+                                    </div>
+
+                                </ul>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 text-center"><a href="{{ url('/products/' . $detail->product->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PRODUCTO </a></div>
+
+                                        <div class="col-sm-6 text-center"><a href="{{ url('#') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                    </div>
 
                 </div>
 

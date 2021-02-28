@@ -10,53 +10,7 @@
   .links-paginate {
     display: inline-block;
   }
-
-  .btn_ctm {
-    padding: 5px 5px;
-  }
-
-  .tt-query {
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  }
-
-  .tt-hint {
-    color: #999
-  }
-
-  .tt-menu {
-    /* used to be tt-dropdown-menu in older versions */
-    width: 422px;
-    margin-top: 4px;
-    padding: 4px 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-  }
-
-  .tt-suggestion {
-    padding: 3px 20px;
-    line-height: 24px;
-  }
-
-  .tt-suggestion.tt-cursor,
-  .tt-suggestion:hover {
-    color: #fff;
-    background-color: #0097cf;
-
-  }
-
-  .tt-suggestion p {
-    margin: 0;
-  }
-
+  
   .product-name {
     margin-bottom: 0em;
   }
@@ -173,9 +127,8 @@
 
       <h4>O revisa nuestras <a class="btn-link" href="{{ url('/categories') }}">categorías</a></h4>
 
-
-
     </div>
+
     <div class="section section-contacts">
       <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
@@ -219,37 +172,4 @@
 
 @include('includes.footer')
 
-@endsection
-
-@section('scripts')
-<!--	Plugin para el buscador predictivo -->
-<script src="{{asset('js\plugins\typeahead.bundle.min.js')}}" type="text/javascript"></script>
-
-<!--Ahora hay que inicializar el script sobre el INPUT con ID search-->
-<script>
-  $(function() {
-
-    //Se debe inicializar el elemento que se pasa como parametro PRODUCTS que viene a ser la fuente SOURCE (CODIGO COPIADO DESDE EL EJEMPLO PORQUE UTILIZA EL MOTOR DE BUSQUEDA)
-    var products = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.whitespace,
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      //Se define un arreglo si queremos una busqueda acotada en determinados elementos
-      //local: ['hola', 'prueba1', 'prueba2', 'abcdwq']
-
-      //Como se quiere utilizar una lista de productos que va a cambiar constantemente, se define un objeto JSON y se usa el atributo PREFETCH.
-      //Como usamos una base de datos, vamos a generar un objeto JSON a partir de los productos registrados. Es una ruta VER WEB.PHP
-      prefetch: '{{ url("/products/json") }}'
-    });
-
-    //Se selecciona el objeto con ID SEARCH y se le pasan 2 objetos por parametro.
-    $('#search').typeahead({
-      hint: true,
-      highlight: true,
-      minLength: 1
-    }, {
-      name: 'products',
-      source: products
-    });
-  });
-</script>
 @endsection
