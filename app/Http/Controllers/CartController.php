@@ -16,6 +16,7 @@ class CartController extends Controller
         $cart = auth()->user()->cart;
         $cart->status_id = 2;//Se le cambia el estado a pendiente (2)
         $cart->order_date = Carbon::now();//Se guarda la fecha en que fue realizada la orden de compra. Con la clase Carbon podemos realizar multiples operaciones con fechas (sumas, restas, comparaciones, etc)
+        $cart->total = $cart->total;
         //Se realiza un UPDATE
         $cart->save();
 

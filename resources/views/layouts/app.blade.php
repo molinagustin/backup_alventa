@@ -18,6 +18,8 @@
   <!-- CSS Files -->
   <link href="{{asset('css/material-kit.css?v=2.0.7')}}" rel="stylesheet" />
 
+  @yield('cssFiles')
+
   <!--Estilos del buscador-->
   <style>
     .btn_ctm {
@@ -148,8 +150,8 @@
     </div>
 
     <div class="collapse navbar-collapse">
-        <i class="fa ml-auto" style="font-size:35px; color:white;"><a href="{{ url('/home/cart') }}" style="color: white;">&#xf07a;</a></i>
-        <span class='badge badge-warning' id='lblCartCount'> {{Auth::user() ? Auth::user()->cart->details->count() : '0'}} </span>      
+      <i class="fa ml-auto" style="font-size:35px; color:white;"><a href="{{ url('/home/redShopCart') }}" style="color: white;">&#xf07a;</a></i>
+      <span class='badge badge-warning' id='lblCartCount'> {{Auth::user() ? Auth::user()->cart->details->count() : '0'}} </span>
 
       <ul class="navbar-nav">
         @guest
@@ -175,6 +177,7 @@
             @if (auth()->user()->rol->id == 1 || auth()->user()->rol->id == 2)
             <a class="dropdown-item" href="{{ url('admin\categories') }}">Gestionar Categorías</a>
             <a class="dropdown-item" href="{{ url('admin\products') }}">Gestionar Productos</a>
+            <a class="dropdown-item" href="{{ url('admin\orders') }}">Gestionar Pedidos</a>
             @endif
 
             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -242,6 +245,7 @@
       });
     });
   </script>
+
 </body>
 
 </html>

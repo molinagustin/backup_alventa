@@ -16,7 +16,7 @@ Route::get('/', 'TestController@welcome');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/cart', 'HomeController@cart');
+Route::get('/home/redShopCart', 'HomeController@cart');
 
 Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
 Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME
@@ -98,4 +98,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->namespace('Admin')->group
     Route::post('/categories/{category}/edit', 'CategoryController@update'); // Guardar los cambios de la categoria
     //Al usar el metodo DELETE, explicitamente estamos indicando que queremos borrar algo, por eso no lleva la palabar DELETE en la URL
     Route::delete('/categories/{category}', 'CategoryController@destroy');
+
+    //Rutas de Ordenes de Compras
+    Route::get('/orders', 'OrderController@index'); //Ver listado de pedidos realizados
+    Route::get('/orders/{order}', 'OrderController@edit'); //Ver listado de pedidos realizados
+    Route::post('/orders/{order}/edit', 'OrderController@update'); // Guardar los cambios de una orden de compra
 });
