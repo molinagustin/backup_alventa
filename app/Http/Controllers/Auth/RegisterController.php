@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request as Req;
+use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Mail\EmailConfirmation;
 
 class RegisterController extends Controller
 {
@@ -67,13 +70,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'address' => $data['address']
         ]);
+        
+        if ($user)
+            $email_confirmation_url = config('app.url') . '/confirmation?param1=' . $user->id . '&param2=' . $user->password;
+            Mail::to($user->email)->send(new EmailConfirmation($user, $email_confirmation_url));
+            return $user;        
     }
 
     //Este metodo es una sobreescritura del metodo original (polimorfismo) ya que lo sobreescribimos para introducir en el registro los datos del nombre y correo del futuro usuario. No hace falta crear una ruta porque laravel ya la tiene en sus archivos Vendor y podemos llamar el metodo desde /register

@@ -150,13 +150,13 @@
     </div>
 
     <div class="collapse navbar-collapse">
-      <i class="fa ml-auto" style="font-size:35px; color:white;"><a href="{{ url('/home/redShopCart') }}" style="color: white;">&#xf07a;</a></i>
+      <i class="fa ml-auto" style="font-size:35px; color:white;"><a href="{{ url('/home/cart') }}" style="color: white;">&#xf07a;</a></i>
       <span class='badge badge-warning' id='lblCartCount'> {{Auth::user() ? Auth::user()->cart->details->count() : '0'}} </span>
 
       <ul class="navbar-nav">
         @guest
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+          <a class="nav-link" href="{{ route('login') }}" style="padding-left: 1.5rem;">{{ __('Ingresar') }}</a>
         </li>
         @if (Route::has('register'))
         <li class="nav-item">
@@ -172,7 +172,7 @@
 
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-            <a class="dropdown-item" href="{{ url('/home') }}">Dashboard</a>
+            <a class="dropdown-item" href="{{ url('/home/dashboard') }}">Dashboard</a>
 
             @if (auth()->user()->rol->id == 1 || auth()->user()->rol->id == 2)
             <a class="dropdown-item" href="{{ url('admin\categories') }}">Gestionar Categorías</a>
@@ -236,7 +236,7 @@
 
       //Se selecciona el objeto con ID SEARCH y se le pasan 2 objetos por parametro.
       $('#search').typeahead({
-        hint: true,
+        hint: false,
         highlight: true,
         minLength: 1
       }, {

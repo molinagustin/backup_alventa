@@ -4,6 +4,18 @@
 
 @section ('body-class', 'profile-page sidebar-collapse')
 
+@section('styles')
+<style>
+  .itemLista {
+  border: 1px solid rgba(0,0,0,.125);
+  border-right: 0;
+  border-left: 0; 
+  border-top:0;
+  }
+
+</style>
+@endsection
+
 @section('content')
 <div class="page-header header-filter" data-parallax="true" style="background-image: url('{{asset('img/ecommerce2.jpg')}}')">
 </div>
@@ -35,21 +47,21 @@
       <div class="row">
         <div class="col-sm-6">
           <h4 class="title text-center">Datos del Cliente</h4>
-          <ul>
-            <li>Nombre de Usuario: {{ $order->user->name }}</li>
-            <li>Email: {{ $order->user->email }}</li>
-            <li>Teléfono: {{ $order->user->phone }}</li>
-            <li>Dirección: {{ $order->user->address }}</li>
+          <ul class="list-group">
+            <li class="list-group-item itemLista">Nombre de Usuario: {{ $order->user->name }}</li>
+            <li class="list-group-item itemLista">Email: {{ $order->user->email }}</li>
+            <li class="list-group-item itemLista">Teléfono: {{ $order->user->phone }}</li>
+            <li class="list-group-item itemLista">Dirección: {{ $order->user->address }}</li>
           </ul>
         </div>
 
         <div class="col-sm-6">
           <h4 class="title text-center">Datos del Pedido</h4>
-          <ul> 
-            <li>Fecha Pedido: {{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y H:i:s') }}</li>
-            <li>Fecha Entrega: {{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('d/m/Y H:i:s') : 'Sin Entregar' }}</li>
-            <li>Última Modificación: {{ \Carbon\Carbon::parse($order->updated_at)->format('d/m/Y H:i:s') }}</li>
-            <li>Estado: <span @switch($order->status->status)
+          <ul class="list-group">
+            <li class="list-group-item itemLista">Fecha Pedido: {{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y H:i:s') }}</li>
+            <li class="list-group-item itemLista">Fecha Entrega: {{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('d/m/Y H:i:s') : 'Sin Entregar' }}</li>
+            <li class="list-group-item itemLista">Última Modificación: {{ \Carbon\Carbon::parse($order->updated_at)->format('d/m/Y H:i:s') }}</li>
+            <li class="list-group-item itemLista">Estado: <span @switch($order->status->status)
                 @case('Pending')
                 style="text-transform: uppercase;color:#e6b11a;"
                 @break
@@ -71,9 +83,7 @@
                 @endswitch>{{ $order->status->status }}</span></li>
           </ul>
         </div>
-      </div>
-
-      <hr>
+      </div>      
 
       <h4 class="title text-center">Datos de los Productos</h4>
 
@@ -132,6 +142,8 @@
           </table>
         </div>
 
+        <hr>
+
         <!--Hace una comparacion de negacion en un arreglo, verifica que el primer parametro no sea ninguno de los parametros del segundo array-->
         @if(!in_array($order->status->status, ['Cancelled', 'Finished']))
         <div class="row">
@@ -162,7 +174,7 @@
                 @endforeach
               </select>
             </div>
-          </div>
+          </div>         
 
           <div class="col-sm-3" id="arrived_date_picker" style="display: none;">
             <div class="form-group label-floating">

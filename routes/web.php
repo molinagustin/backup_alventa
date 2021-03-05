@@ -12,11 +12,21 @@
 */
 //SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS
 Route::get('/', 'TestController@welcome');
-
+/*Route::get('/mailable', function(){
+    $user = App\User::first();
+    return new App\Mail\EmailConfirmation($user, '/url');
+});*/
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/redShopCart', 'HomeController@cart');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/confirmation', 'Auth\EmailController@confirm');
+
+Route::get('/home/dashboard', 'HomeController@index')->name('dashboard');
+Route::get('/home/cart', 'HomeController@index')->name('cart');
+Route::get('/home/orders', 'HomeController@index')->name('orders');
+Route::get('/home/settings', 'HomeController@index')->name('settings');
+
+Route::post('/home', 'HomeController@update');//ACtualizar Datos del Usuario
 
 Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
 Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME

@@ -4,6 +4,35 @@
 
 @section ('body-class', 'profile-page sidebar-collapse')
 
+@section ('styles')
+<style>
+  .inputImage {
+    display: inline-block;
+    width: 40%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    font-family: inherit;
+  }
+
+  .inputImage[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+
+  .inputImage[type=file] {
+    overflow: hidden;
+  }
+</style>
+@endsection
+
 @section('content')
 <div class="page-header header-filter" data-parallax="true" style="background-image: url('{{asset('img/ecommerce2.jpg')}}')">
 </div>
@@ -52,7 +81,10 @@
       <form method="post" action="" enctype="multipart/form-data">
         <!--En el formulario para subir imagenes debe tener ese atributo ENCTYPE para habilitarlo-->
         @csrf
-        <input type="file" name="photo" required><br>
+
+        <div class="mb-3">
+          <input type="file" class="inputImage" name="photo" required>
+        </div>
         <button type="submit" class="btn btn-primary btn-round">Subir Imágen</button>
         <a href="{{url('/admin/products')}}" class="btn btn-default btn-round">Volver</a>
       </form>

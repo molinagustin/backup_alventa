@@ -47,28 +47,36 @@
 
             <ul class="nav nav-pills nav-pills-success nav-pills-icons" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link {{ $redShopCart ? '' : 'active' }}" href="#dashboard" role="tab" data-toggle="tab">
+                    <a @if (Request::url()==route('dashboard')) class='nav-link active' @else class='nav-link' @endif href="{{ url('/home/dashboard') }}" role="tab">
                         <i class="material-icons">dashboard</i>
                         Resumen
                     </a>
                 </li>
                 <li class="nav-item">
 
-                    <a class="nav-link {{ $redShopCart ? 'active' : '' }}" href="#shopping_cart" role="tab" data-toggle="tab">
+                    <a @if (Request::url()==route('cart')) class='nav-link active' @else class='nav-link' @endif href="{{ url('/home/cart') }}" role="tab">
+
                         <i class="material-icons">shopping_cart</i>
                         Carro de Compras
                     </a>
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#orders" role="tab" data-toggle="tab">
+                    <a @if (Request::url()==route('orders')) class='nav-link active' @else class='nav-link' @endif href="{{ url('/home/orders') }}" role="tab">
+
                         <i class="material-icons">list</i>
                         Pedidos Realizados
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a @if (Request::url()==route('settings')) class='nav-link active' @else class='nav-link' @endif href="{{ url('/home/settings') }}" role="tab">
+                        <i class="material-icons">settings</i>
+                        Configuraciones
+                    </a>
+                </li>
             </ul>
             <div class="tab-content tab-space">
-                <div class="tab-pane {{ $redShopCart ? '' : 'active' }}" id="dashboard" style="padding-top: 30px;">
+                <div @if (Request::url()==route('dashboard')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/dashboard') }}" style="padding-top: 30px;">
                     <div class="row">
 
                         <div class="col-lg-3 col-6">
@@ -126,7 +134,7 @@
                     </div>
                 </div>
 
-                <div class="tab-pane {{ $redShopCart ? 'active' : '' }}" id="shopping_cart">
+                <div @if (Request::url()==route('cart')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/cart') }}">
                     <hr>
                     <p>Tienes <b>{{ auth()->user()->cart->details->count() }}</b> productos en tu carro de compras.</p>
                     <table class="table">
@@ -202,7 +210,7 @@
 
                 </div>
 
-                <div class="tab-pane" id="orders">
+                <div @if (Request::url()==route('orders')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/orders') }}">
                     <h3 class="title">Compras</h3>
 
                     <div class="row">
@@ -270,6 +278,100 @@
                         @endforeach
                         @endforeach
                     </div>
+
+                </div>
+
+                <div @if (Request::url()==route('settings')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/settings') }}">
+                    <h3 class="title text-center">Datos del usuario {{ Auth()->user()->name }}</h3>
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                            <li>
+                                {{$error}}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    @if (session('updateUserData'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('updateUserData') }}
+                    </div>
+                    @endif
+
+                    @if (session('error'))
+                    <div class="alert alert-danger">
+                        <ul>
+                            {{ session('error') }}
+                        </ul>
+                    </div>
+                    @endif
+
+                    <form method="post" action="{{ url('/home/') }}">
+                        @csrf
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="inputUserName">Nombre de Usuario</label>
+                                <input type="text" class="form-control" name="username" id="inputUserName" value="{{ old('username', Auth()->user()->name) }}" placeholder="Nombre de Usuario" required>
+                            </div>
+                            <div class="form-group col-md-4 offset-sm-2">
+                                <label for="password">Contraseña Actual</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" class="form-control" name="email" id="email" value="{{ old('email', Auth()->user()->email) }}" placeholder="Correo Electrónico" required autocomplete="email">
+                            </div>
+                            <div class="form-group col-md-4 offset-sm-2">
+                                <label for="newPassword">Nueva Contraseña</label>
+                                <input type="password" class="form-control" name="new-password" id="newPassword" placeholder="Nueva Contraseña">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <div class="form-group">
+                                    <label class="form-check-label" for="email-confirmed">
+                                        @if(Auth()->user()->email_verified_at)
+                                        <b style="color:green;"><u>Correo electrónico confirmado el {{ \Carbon\Carbon::parse(Auth()->user()->email_verified_at)->format('d/m/Y H:i:s') }}</u></b>
+                                        @else
+                                        <b style="color:red;">Correo electrónico sin confirmar, por favor revisar su cuenta de correo.</b>
+                                        @endif
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4 offset-sm-2">
+                                <label for="cNewPassword">Confirmar Nueva Contraseña</label>
+                                <input type="password" class="form-control" name="new-password_confirmation" id="cNewPassword" placeholder="Confirmar Nueva Contraseña">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="phone">N° Teléfono</label>
+                                <input type="phone" class="form-control" name="phone" id="phone" value="{{ old('phone', Auth()->user()->phone) }}" placeholder="2625 225566">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="address">Dirección</label>
+                                <input type="text" class="form-control" name="address" id="address" value="{{ old('address', Auth()->user()->address) }}" placeholder="Av. Alvear Oeste n° 1245 - B° Islas Malvinas">
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
 
                 </div>
 

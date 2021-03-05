@@ -4,6 +4,35 @@
 
 @section ('body-class', 'profile-page sidebar-collapse')
 
+@section ('styles')
+<style>
+  .inputImage {
+    display: inline-block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    font-family: inherit;
+  }
+
+  .inputImage[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+
+  .inputImage[type=file] {
+    overflow: hidden;
+  }
+</style>
+@endsection
+
 @section('content')
 <div class="page-header header-filter" data-parallax="true" style="background-image: url('{{asset('img/ecommerce3.jpg')}}')">
 
@@ -43,7 +72,7 @@
             <div class="label-floating">
               <label class="control-label">Imagen de la Categoría</label>
             </div>
-            <input type="file" name="image">
+            <input type="file" class="inputImage" name="image">
           </div>
 
         </div>

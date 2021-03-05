@@ -139,7 +139,7 @@ class CategoryController extends Controller
 
     //Validaciones generales para almacenar y editar categorias
     public function valid(Request $request)
-    {   //Es una forma distinta de hacer la validacion a la vista en los productos
+    {   //Es una forma distinta de hacer la validacion a la vista en las categorias. VER CATEGORY MODEL
         $this->validate($request, Category::$rules, Category::$messages);
     }
 }
