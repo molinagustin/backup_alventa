@@ -15,11 +15,9 @@ Auth::routes();
 //SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS
 Route::get('/', 'TestController@welcome');
 /*Route::get('/mailable', function(){
-    $name = 'Homero Thompson';
-    $email = 'hthomp@gmail.com';
-    $subject = 'No me anda un boton';
-    $message = 'SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS';
-    return new App\Mail\Contact($name, $email, $subject, $message);
+    $user = App\User::first();    
+    $cart = App\Cart::where('user_id', '1')->first(); 
+   return new App\Mail\OrderRequested($user, $cart);
 });*/
 
 

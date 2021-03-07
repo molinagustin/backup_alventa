@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\NewOrder;
+use App\Mail\OrderRequested;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\User;
@@ -29,6 +30,8 @@ class CartController extends Controller
         //A traves de una instancia de Mailable, enviamos un correo a todos los administradores
         $admins = User::whereIn('rol_id', [1, 2])->get();
         Mail::to($admins)->send(new NewOrder(auth()->user(), $cart)); //Le enviamos por parametros el usuario que realizo el pedido y su carro de compras
+        //Le enviamos un email al usuario que realizo el pedido
+        Mail::to($cart->user->email)->send(new OrderRequested(auth()->user(), $cart));
 
         //Por medio de una variable de sesion flash enviamos una notificacion
         $notification = 'Tu pedido se ha realizado correctamente. Te contactaremos pronto vía email.';
