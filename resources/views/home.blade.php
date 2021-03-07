@@ -136,7 +136,7 @@
 
                 <div @if (Request::url()==route('cart')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/cart') }}">
                     <hr>
-                    <p>Tienes <b>{{ auth()->user()->cart->details->count() }}</b> productos en tu carro de compras.</p>
+                    <p>Tienes <b>{{ auth()->user()->cart->details->count() }}</b> {{ (auth()->user()->cart->details->count() != 1) ? 'productos' : 'producto'}} en tu carro de compras.</p>
                     <table class="table">
                         <thead>
 
@@ -163,11 +163,11 @@
                                     <a href="{{ url('/products/'. $detail->product->id) }}" target="_blank">{{$detail->product->name}}</a>
                                 </td>
 
-                                <td class="text-right">&dollar; {{$detail->product->price}}</td>
+                                <td class="text-right">&dollar; <span id="{{ 'price_id' . $detail->product->id}}">{{$detail->product->price}}</span></td>
 
-                                <td class="text-center">{{ $detail->quantity }}</td>
+                                <td class="text-center"><input class="form-control" type="number" min="1" max="100" step="1" value="{{ $detail->quantity }}" name="quantity" id="{{ 'quantity_id' . $detail->product->id}}" style="width: 5em;display:inline-block;text-align:center;" onchange="calcular(this.value, '{{$detail->product->id}}');" oninput="validity.valid||(value='1');" onpress="isNumber(event);" required></td>
 
-                                <td class="text-center">&dollar; {{ $detail->quantity * $detail->product->price }}</td>
+                                <td class="text-center">&dollar; <span id="{{ 'sub_total' . $detail->product->id}}">{{ $detail->quantity * $detail->product->price }}</span></td>
 
                                 <td class="td-actions text-center">
 
@@ -196,16 +196,13 @@
                     </table>
 
                     @if(auth()->user()->cart->total > 0)
-                    <p><b>Importe total a pagar: </b> $ {{ auth()->user()->cart->total }}</p>
+                    <p><b>Importe total a pagar: </b> $ <span id="total_id">{{ auth()->user()->cart->total }}</span></p>
 
-                    <form method="post" action="{{ url('/order') }}">
-                        @csrf
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-round">
-                                <i class="material-icons">local_shipping</i> Realizar Pedido
-                            </button>
-                        </div>
-                    </form>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalOrder">
+                            <i class="material-icons">local_shipping</i> Realizar Pedido
+                        </button>
+                    </div>
                     @endif
 
                 </div>
@@ -269,7 +266,7 @@
                                     <div class="row">
                                         <div class="col-sm-6 text-center"><a href="{{ url('/products/' . $detail->product->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PRODUCTO </a></div>
 
-                                        <div class="col-sm-6 text-center"><a href="{{ url('#') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
+                                        <div class="col-sm-6 text-center"><a href="{{ url('/contact') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
                                     </div>
 
                                 </div>
@@ -382,6 +379,91 @@
     </div>
 </div>
 
-@include('includes.footer')
+<!-- Modal -->
+<div class="modal fade" id="modalOrder" tabindex="-1" role="dialog" aria-labelledby="modalOrderHeader" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @if(auth()->user()->address)
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalOrderHeader"><b>Verifique los datos del pedido #{{auth()->user()->cart->id}}</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+            <form method="post" action="{{ url('/order') }}">
+                @csrf
+
+                <div class="modal-body">
+                    <h6>Detalles:</h6>
+                    <p>El pedido será enviado a la direccion: <b>{{ auth()->user()->address }}</b>, a nombre de <b>{{auth()->user()->name}}</b>.<br>
+                        Para contactarnos con usted se utilizará:</p>
+                    <ul style="font-size: 14px;">
+                        <li>Teléfono: <b>{{auth()->user()->phone}}</b></li>
+                        <li>Email: <b>{{auth()->user()->email}}</b></li>
+                    </ul>
+                    <p style="font-size: 11px;">Para cambiar cualquiera de éstos datos, por favor dirijase a la seccion de configuración o bien, pongase en contacto con el administrador.</p>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Confirmar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </form>
+            @else
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalOrderHeader"><b>Datos faltantes</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" style="border-radius: 0.3rem;">
+                    <h4>Por favor, termine de configurar sus datos de usuario en la pestaña de Configuraciones antes de proceder.</h4>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Volver</button>
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+@include('includes.footer')
+@endsection
+@section('js_scripts')
+<script>
+    // this prevents from typing non-number text, including "e".
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        let charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+            evt.preventDefault();
+        } else {
+            return true;
+        }
+    }
+
+    function calcular(cantidad, id) {
+        var total = 0;
+        total = parseFloat(document.getElementById('total_id').innerHTML);
+        total -= parseFloat(document.getElementById('sub_total' + id).innerHTML);
+
+        var price = 0;
+        price = parseFloat(document.getElementById('price_id' + id).innerHTML);
+
+        cantidad = parseInt(cantidad); // Convertir el valor a un entero (número).   
+
+        /* Esta es la cuenta. */
+        var subTotal = 0;
+        subTotal = (price * cantidad);
+        total += subTotal;
+
+        // Colocar el resultado de la cuenta en el control "span".
+        document.getElementById('quantity_id' + id).innerHTML = cantidad;
+        document.getElementById('sub_total' + id).innerHTML = subTotal.toFixed(2);
+        document.getElementById('total_id').innerHTML = total.toFixed(2);
+    }
+</script>
 @endsection

@@ -17,6 +17,16 @@ class CartDetailController extends Controller
 
     public function store(Request $request)
     {
+        foreach (auth()->user()->cart->details as $detail) {
+            if ($detail->product->id == $request->product_id) {
+                $cartDetail = CartDetail::find($detail->id);
+                $cartDetail->quantity += $request->quantity;
+                $cartDetail->save(); //Update
+                $notification = 'El producto fue agregado al carro de compras exitosamente.';
+                return back()->with(compact('notification'));
+            }
+        }
+
         $cartDetail = new CartDetail();
         $cartDetail->cart_id = auth()->user()->cart->id; //Por medio de un campo calculado getCartAttribute obtengo el carrito activo del cliente que ha iniciado sesion
         $cartDetail->product_id = $request->product_id;

@@ -10,23 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
 //SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS
 Route::get('/', 'TestController@welcome');
 /*Route::get('/mailable', function(){
-    $user = App\User::first();
-    return new App\Mail\EmailConfirmation($user, '/url');
+    $name = 'Homero Thompson';
+    $email = 'hthomp@gmail.com';
+    $subject = 'No me anda un boton';
+    $message = 'SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS';
+    return new App\Mail\Contact($name, $email, $subject, $message);
 });*/
-Auth::routes();
+
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/confirmation', 'Auth\EmailController@confirm');
+
+//InfoController manejara todo lo relacionado a la informacion disponible en el footer
+Route::get('/contact', 'InfoController@contact');
+Route::post('/send', 'InfoController@sendEmail');
 
 Route::get('/home/dashboard', 'HomeController@index')->name('dashboard');
 Route::get('/home/cart', 'HomeController@index')->name('cart');
 Route::get('/home/orders', 'HomeController@index')->name('orders');
 Route::get('/home/settings', 'HomeController@index')->name('settings');
 
-Route::post('/home', 'HomeController@update');//ACtualizar Datos del Usuario
+Route::post('/home', 'HomeController@update');//Actualizar Datos del Usuario
 
 Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
 Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME

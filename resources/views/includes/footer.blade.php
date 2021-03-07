@@ -1,7 +1,7 @@
 <footer class="footer footer-default">
     <div class="container">
         <nav class="float-left">
-            <ul>                
+            <ul>
                 <li>
                     <a href="#">
                         Acerca de Nosotros
@@ -15,6 +15,11 @@
                 <li>
                     <a href="#">
                         ¿Qué Opinan Nuestros Clientes?
+                    </a>
+                </li>
+                <li>
+                    <a href="/contact">
+                        Contactanos
                     </a>
                 </li>
             </ul>

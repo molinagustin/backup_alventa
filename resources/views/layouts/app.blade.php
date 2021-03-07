@@ -245,6 +245,8 @@
       });
     });
   </script>
+  
+  @yield('js_scripts')
 
 </body>
 

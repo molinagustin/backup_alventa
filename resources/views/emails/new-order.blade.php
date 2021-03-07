@@ -38,7 +38,7 @@
     <hr>
 
     <!--Por medio del enlace llevamos al administrador a las ordenes particulares que posee ese carro de compras-->
-    <p> <a href=" {{ url('/admin/orders/' . $cart->id) }}">Haz click aquí</a> para ver mas información sobre el pedido.</p>
+    <p> <a href=" {{ url(config('app.url') . '/admin/orders/' . $cart->id) }}">Haz click aquí</a> para ver mas información sobre el pedido.</p>
 </body>
 
 </html>

@@ -44,7 +44,7 @@
               @foreach ($carts as $cart)
               <tr>
                 <td>{{$cart->id}}</td>
-                <td>{{$cart->order_date}}</td>
+                <td>{{ \Carbon\Carbon::parse($cart->order_date)->format('d/m/Y H:i:s') }}</td>
                 <td @switch($cart->status->status)
                   @case('Pending')
                   style="text-transform: uppercase;color:#e6b11a;"
