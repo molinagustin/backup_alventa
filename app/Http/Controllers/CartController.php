@@ -6,10 +6,16 @@ use App\Mail\NewOrder;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\User;
+use App\Cart;
 use Mail;
 
 class CartController extends Controller
 {
+    public function show(Cart $cart)
+    {
+        return view('orders.show')->with(compact('cart'));
+    }
+
     public function update()
     {
         //Obtenemos el carrito activo de un usuario a traves del campo calculado ACCESOR nombre getCartAttribute

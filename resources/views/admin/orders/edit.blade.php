@@ -48,20 +48,20 @@
         <div class="col-sm-6">
           <h4 class="title text-center">Datos del Cliente</h4>
           <ul class="list-group">
-            <li class="list-group-item itemLista">Nombre de Usuario: {{ $order->user->name }}</li>
-            <li class="list-group-item itemLista">Email: {{ $order->user->email }}</li>
-            <li class="list-group-item itemLista">Teléfono: {{ $order->user->phone }}</li>
-            <li class="list-group-item itemLista">Dirección: {{ $order->user->address }}</li>
+            <li class="list-group-item itemLista">Nombre de Usuario: <b>{{ $order->user->name }}</b></li>
+            <li class="list-group-item itemLista">Email: <b>{{ $order->user->email }}</b></li>
+            <li class="list-group-item itemLista">Teléfono: <b>{{ $order->user->phone }}</b></li>
+            <li class="list-group-item itemLista">Dirección: <b>{{ $order->user->address }}</b></li>
           </ul>
         </div>
 
         <div class="col-sm-6">
           <h4 class="title text-center">Datos del Pedido</h4>
           <ul class="list-group">
-            <li class="list-group-item itemLista">Fecha Pedido: {{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y H:i:s') }}</li>
-            <li class="list-group-item itemLista">Fecha Entrega: {{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('d/m/Y H:i:s') : 'Sin Entregar' }}</li>
-            <li class="list-group-item itemLista">Última Modificación: {{ \Carbon\Carbon::parse($order->updated_at)->format('d/m/Y H:i:s') }}</li>
-            <li class="list-group-item itemLista">Estado: <span @switch($order->status->status)
+            <li class="list-group-item itemLista">Fecha Pedido: <b>{{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y H:i:s') }}</b></li>
+            <li class="list-group-item itemLista">Fecha Entrega: <b>{{ $order->arrived_date ? \Carbon\Carbon::parse($order->arrived_date)->format('d/m/Y H:i:s') : 'Sin Entregar' }}</b></li>
+            <li class="list-group-item itemLista">Última Modificación: <b>{{ \Carbon\Carbon::parse($order->updated_at)->format('d/m/Y H:i:s') }}</b></li>
+            <li class="list-group-item itemLista">Estado: <b><span @switch($order->status->status)
                 @case('Pending')
                 style="text-transform: uppercase;color:#e6b11a;"
                 @break
@@ -80,7 +80,7 @@
 
                 @default
                 style="text-transform: uppercase;"
-                @endswitch>{{ $order->status->status }}</span></li>
+                @endswitch>{{ $order->status->status }}</span></b></li>
           </ul>
         </div>
       </div>      

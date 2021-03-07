@@ -54,6 +54,7 @@ Route::get('/categories/{category}', 'CategoryController@show');
 Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');
 
+Route::get('/order/{cart}', 'CartController@show');
 Route::post('/order', 'CartController@update');//Actualiza el estado del carro de Activo a Pendiente, queriendo decir que se realizo una nueva orden de compra
 
 //Utilizamos un middleware para asociarlo a un grupo de rutas, de esta forma se aplicara a cualquier ruta dentro del grupo elegido

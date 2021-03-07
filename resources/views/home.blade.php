@@ -264,7 +264,7 @@
                                 </ul>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-6 text-center"><a href="{{ url('/products/' . $detail->product->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PRODUCTO </a></div>
+                                        <div class="col-sm-6 text-center"><a href="{{ url('/order/' . $cart->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PEDIDO </a></div>
 
                                         <div class="col-sm-6 text-center"><a href="{{ url('/contact') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
                                     </div>
