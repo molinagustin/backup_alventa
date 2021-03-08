@@ -92,7 +92,7 @@ class HomeController extends Controller
             'new-password_confirmation.required_with' => 'Es necesario confirmar la nueva contraseña.',
             'new-password_confirmation.same' => 'La nueva contraseña no coincide con su confirmación.',
 
-            'phone.numeric' => 'El numero de teléfono debe ser numerico solamente.',
+            'phone.numeric' => 'El numero de teléfono debe ser numerico solamente y sin espacios.',
 
             'address.max' => 'La dirección no puede exceder los 50 caracteres.',
         ];

@@ -7,9 +7,16 @@ use Illuminate\Http\Request;
 
 use App\Cart;
 use App\CartStatus;
+use Mail;
+use App\Mail\OrderUpdated;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
         $carts = Cart::whereIn('status_id', ['2', '3', '4', '5'])->orderBy('status_id', 'asc')->orderBy('order_date', "desc")->paginate(10);
@@ -26,14 +33,19 @@ class OrderController extends Controller
     {
         $order->status_id = $request->input('status_id');
 
-        if($request->status_id == 5)
+        if ($request->status_id == 5)
             $order->arrived_date = $request->arrived_date;
 
         $order->observations = $request->observation;
-        $order->save();        
+        if ($order->save()) {
+            Mail::to($order->user->email)->send(new OrderUpdated($order));
 
-        //Por medio de una variable de sesion flash enviamos una notificacion
-        $notification = 'El pedido fue modificado correctamente.';
-        return back()->with(compact('notification'));
+            //Por medio de una variable de sesion flash enviamos una notificacion
+            $notification = 'El pedido fue modificado correctamente.';
+            return back()->with(compact('notification'));
+        }
+
+        $errors = 'No se pudo modificar el pedido.';
+        return back()->withErrors(compact('errors'));
     }
 }

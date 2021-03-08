@@ -26,7 +26,7 @@ class AdminMiddleware
         //2 formas de hacerlo
         //Comprobante el ID del ROL por medio de la funcion de Eloquen que me permite acceder a los roles gracias a la
         //relacion entre modelos que se hizo entre ROL y USUARIO a traves del metodo ROL
-        if (auth()->user()->rol->id != 1){
+        if (auth()->user()->rol->id != 1 && auth()->user()->rol->id != 2){
             return redirect('/');
         }
 

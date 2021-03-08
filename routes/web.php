@@ -14,10 +14,9 @@ Auth::routes();
 
 //SOLO USAR METODO GET SI NECESITO OBTENER DATOS, PARA CUALQUIER OTRA OPERACION USO METODO POST COMO REGISTRAR, ACTUALIZAR O ELIMINAR ELEMENTOS
 Route::get('/', 'TestController@welcome');
-/*Route::get('/mailable', function(){
-    $user = App\User::first();    
-    $cart = App\Cart::where('user_id', '1')->first(); 
-   return new App\Mail\OrderRequested($user, $cart);
+/*Route::get('/mailable', function(){     
+    $cart = App\Cart::where('id', '10')->first(); 
+   return new App\Mail\OrderUpdated($cart);
 });*/
 
 
@@ -28,15 +27,16 @@ Route::get('/confirmation', 'Auth\EmailController@confirm');
 Route::get('/contact', 'InfoController@contact');
 Route::post('/send', 'InfoController@sendEmail');
 
-Route::get('/home/dashboard', 'HomeController@index')->name('dashboard');
-Route::get('/home/cart', 'HomeController@index')->name('cart');
-Route::get('/home/orders', 'HomeController@index')->name('orders');
-Route::get('/home/settings', 'HomeController@index')->name('settings');
-
-Route::post('/home', 'HomeController@update');//Actualizar Datos del Usuario
+Route::prefix('/home')->group(function () {
+    Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::get('/cart', 'HomeController@index')->name('cart');
+    Route::get('/orders', 'HomeController@index')->name('orders');
+    Route::get('/settings', 'HomeController@index')->name('settings');
+    Route::post('', 'HomeController@update'); //Actualizar Datos del Usuario
+});
 
 Route::get('/search', 'SearchController@show'); //Realizar una busqueda de todos los productos dentro de una categoria
-Route::get('/products/json', 'SearchController@data');//Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME
+Route::get('/products/json', 'SearchController@data'); //Ruta para devolverle un objeto JSON al buscador predictivo de la vista WELCOME
 
 //IMPORTANTE => TENER CUIDADO AL MOMENTO DE DEFINIR RUTAS CON EL MISMO NOMBRE, COMO PRODUCTS, PORQUE EN EL ORDEN EN QUE SE COLOQUEN EN ESTE ARCHIVO
 //SERA LA PRIORIDAD DE COMO SE RESOLVERA. LA RUTA SUPERIOR /products/json SE RESUELVE ANTES QUE /products/{id}, PERO SI LAS COLOCO EN ORDEN DISTINTO
@@ -53,7 +53,7 @@ Route::post('/cart', 'CartDetailController@store');
 Route::delete('/cart', 'CartDetailController@destroy');
 
 Route::get('/order/{cart}', 'CartController@show');
-Route::post('/order', 'CartController@update');//Actualiza el estado del carro de Activo a Pendiente, queriendo decir que se realizo una nueva orden de compra
+Route::post('/order', 'CartController@update'); //Actualiza el estado del carro de Activo a Pendiente, queriendo decir que se realizo una nueva orden de compra
 
 //Utilizamos un middleware para asociarlo a un grupo de rutas, de esta forma se aplicara a cualquier ruta dentro del grupo elegido
 //Para usar el prefijo 'admin' se le aplico un alias al AdminMiddleware.php en el archivo Kernel.php dentro de App\Http

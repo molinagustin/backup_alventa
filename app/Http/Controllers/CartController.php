@@ -12,9 +12,16 @@ use Mail;
 
 class CartController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function show(Cart $cart)
     {
-        return view('orders.show')->with(compact('cart'));
+        if($cart->user->id == auth()->user()->id)
+            return view('orders.show')->with(compact('cart'));
+        return redirect(route('dashboard'));
     }
 
     public function update()

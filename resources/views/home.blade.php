@@ -393,6 +393,7 @@
 
             <form method="post" action="{{ url('/order') }}">
                 @csrf
+                
 
                 <div class="modal-body">
                     <h6>Detalles:</h6>
