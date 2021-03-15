@@ -93,7 +93,7 @@
   </style>
   <!--Estilos de Welcome.Blade.php-->
   @yield('styles')
-
+  @livewireStyles
 </head>
 
 <body class="@yield('body-class')">
@@ -247,7 +247,7 @@
   </script>
   
   @yield('js_scripts')
-
+  @livewireScripts
 </body>
 
 </html>
