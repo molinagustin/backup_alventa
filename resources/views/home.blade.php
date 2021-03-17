@@ -141,65 +141,67 @@
                 <div @if (Request::url()==route('orders')) class='tab-pane active' @else class='tab-pane' @endif id="{{ url('/home/orders') }}">
                     <h3 class="title">Compras</h3>
 
-                    <div class="row">
+                    <div class="row" style="text-align: -webkit-center;">
                         @foreach($carts as $cart)
                         @foreach($cart->details as $detail)
-                        <div class="col-md-4">
-                            <div class="card" style="width: 28rem; margin-top:30px;">
-                                <img class="card-img-top" src="{{ $detail->product->featured_image_url }}" alt="Imagen de Producto Comprado" height="400px">
-                                <div class="card-body text-center" style="min-height: 150px;">
-                                    <h5 class="card-title">{{ $detail->product->name }}</h5>
-                                    <p class="card-text">{{ $detail->product->description }}</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <li class="list-group-item">N° de Orden:</li>
-                                            <li class="list-group-item">Cantidad Comprada:</li>
-                                            <li class="list-group-item">Precio por Unidad:</li>
-                                            <li class="list-group-item">Fecha de Pedido:</li>
-                                            <li class="list-group-item">Última Actualización:</li>
-                                            <li class="list-group-item">Estado:</li>
-                                        </div>
-                                        <div class="col-sm-6 text-right">
-                                            <b>
-                                                <li class="list-group-item">{{ $cart->id }}</li>
-                                                <li class="list-group-item">{{ $detail->quantity }} {{ $detail->quantity > 1 ? 'Unidades' : 'Unidad' }}</li>
-                                                <li class="list-group-item">$ {{ $detail->product->price }}</li>
-                                                <li class="list-group-item">{{ \Carbon\Carbon::parse($cart->order_date)->format('d/m/Y H:i:s') }}</li>
-                                                <li class="list-group-item">{{ \Carbon\Carbon::parse($cart->updated_at)->format('d/m/Y H:i:s') }}</li>
-                                                <li class="list-group-item" @switch($cart->status->status)
-                                                    @case('Pending')
-                                                    style="text-transform: uppercase;color:#e6b11a;"
-                                                    @break
-
-                                                    @case('Approved')
-                                                    style="text-transform: uppercase;color:#00c700;"
-                                                    @break
-
-                                                    @case('Cancelled')
-                                                    style="text-transform: uppercase;color:red;"
-                                                    @break
-
-                                                    @case('Finished')
-                                                    style="text-transform: uppercase;color:#007ec7;"
-                                                    @break
-
-                                                    @default
-                                                    style="text-transform: uppercase;"
-                                                    @endswitch>{{ $cart->status->status }}</li>
-                                            </b>
-                                        </div>
+                        <div class="panel panel-default">
+                            <div class="col-md-4">
+                                <div class="card" style="width: 28rem; margin-top:30px;">
+                                    <img class="card-img-top" src="{{ $detail->product->featured_image_url }}" alt="Imagen de Producto Comprado" height="400px">
+                                    <div class="card-body text-center" style="min-height: 150px;">
+                                        <h5 class="card-title">{{ $detail->product->name }}</h5>
+                                        <p class="card-text">{{ $detail->product->description }}</p>
                                     </div>
+                                    <ul class="list-group list-group-flush">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <li class="list-group-item">N° de Orden:</li>
+                                                <li class="list-group-item">Cantidad Comprada:</li>
+                                                <li class="list-group-item">Precio por Unidad:</li>
+                                                <li class="list-group-item">Fecha de Pedido:</li>
+                                                <li class="list-group-item">Última Actualización:</li>
+                                                <li class="list-group-item">Estado:</li>
+                                            </div>
+                                            <div class="col-sm-6 text-right">
+                                                <b>
+                                                    <li class="list-group-item">{{ $cart->id }}</li>
+                                                    <li class="list-group-item">{{ $detail->quantity }} {{ $detail->quantity > 1 ? 'Unidades' : 'Unidad' }}</li>
+                                                    <li class="list-group-item">$ {{ $detail->product->price }}</li>
+                                                    <li class="list-group-item">{{ \Carbon\Carbon::parse($cart->order_date)->format('d/m/Y H:i:s') }}</li>
+                                                    <li class="list-group-item">{{ \Carbon\Carbon::parse($cart->updated_at)->format('d/m/Y H:i:s') }}</li>
+                                                    <li class="list-group-item" @switch($cart->status->status)
+                                                        @case('Pending')
+                                                        style="text-transform: uppercase;color:#e6b11a;"
+                                                        @break
 
-                                </ul>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-6 text-center"><a href="{{ url('/order/' . $cart->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PEDIDO </a></div>
+                                                        @case('Approved')
+                                                        style="text-transform: uppercase;color:#00c700;"
+                                                        @break
 
-                                        <div class="col-sm-6 text-center"><a href="{{ url('/contact') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
+                                                        @case('Cancelled')
+                                                        style="text-transform: uppercase;color:red;"
+                                                        @break
+
+                                                        @case('Finished')
+                                                        style="text-transform: uppercase;color:#007ec7;"
+                                                        @break
+
+                                                        @default
+                                                        style="text-transform: uppercase;"
+                                                        @endswitch>{{ $cart->status->status }}</li>
+                                                </b>
+                                            </div>
+                                        </div>
+
+                                    </ul>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6 text-center"><a href="{{ url('/order/' . $cart->id) }}" target="_blank" class="card-link" style="color: #3c8486d6; font-weight:bold;"> VER PEDIDO </a></div>
+
+                                            <div class="col-sm-6 text-center"><a href="{{ url('/contact') }}" class="card-link" style="color: #3c8486d6; font-weight:bold;"> CONTACTAR ADMIN </a></div>
+                                        </div>
+
                                     </div>
-
                                 </div>
                             </div>
                         </div>

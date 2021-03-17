@@ -23,41 +23,29 @@
 @endsection
 
 @section('content')
-<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: inherit;">
+<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: relative;display:grid;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                <div class="card card-login">
-
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                            <li>
-                                {{$error}}
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+                <div class="card card-login" style="height:60%;">
 
                     <form class="form" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="card-header card-header-primary text-center">
                             <h4 class="card-title">Inicio de Sesión</h4>
-                            <!-- <div class="social-line">
-                                <a href="#" class="btn btn-just-icon btn-link">
-                                    <i class="fa fa-facebook-square"></i>
-                                </a>
-                                <a href="#" class="btn btn-just-icon btn-link">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a href="#" class="btn btn-just-icon btn-link">
-                                    <i class="fa fa-google-plus"></i>
-                                </a>
-                            </div> -->
                         </div>
                         <p class="description text-center">Ingresá Tus Datos</p>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                <li>
+                                    {{$error}}
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
                         <div class="card-body">
 
                             <div class="input-group">
@@ -76,7 +64,7 @@
                                     </span>
                                 </div>
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Contraseña">
-                            </div>                            
+                            </div>
                             <br>
                             <div class="checkbox text-center">
                                 <label style="padding-top: 20px;">
@@ -86,7 +74,7 @@
                             </div>
 
                         </div>
-                        
+
 
                         <div class="text-center">
                             <br>

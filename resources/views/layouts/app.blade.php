@@ -135,7 +135,7 @@
 
 
     <!--BUSCADOR CENTRAL-->
-    <div class="col-sm-4 hide" style="margin-left: 27em;">
+    <div class="col-sm-4 hide">
       <form method="get" action="{{ url('/search') }}" target="_blank">
 
         <div class="input-group">
