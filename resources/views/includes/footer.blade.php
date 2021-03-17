@@ -1,4 +1,4 @@
-<footer class="footer footer-default" style="position:unset;">
+<footer class="footer footer-default" style="position:fixed;">
     <div class="container">
         <nav class="float-left">
             <ul>

@@ -23,7 +23,7 @@
 @endsection
 
 @section('content')
-<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: fixed;display:grid;">
+<div class="header header-filter" style="background-image: url('{{ asset('img/ecommerce.jpg') }}'); background-size: cover; background-position: top center; position: relative;display:grid;">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 ml-auto mr-auto">
