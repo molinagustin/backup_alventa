@@ -110,7 +110,7 @@
                 </table>
 
                 <h5 class="title text-center">Observaciones</h5>
-                <textarea class="form-control" rows="2" name="observation" placeholder="Observaciones">{{ ($cart->observations) ? $cart->observations : 'Sin observaciones' }}</textarea>
+                <textarea class="form-control" rows="2" name="observation" placeholder="Observaciones" readonly>{{ ($cart->observations) ? $cart->observations : 'Sin observaciones' }}</textarea>
 
                 <div class="text-center">
                     <a href="{{ route('orders') }}" class="btn btn-default text-center">Volver</a>

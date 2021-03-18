@@ -7,7 +7,7 @@
 @endslot
 
 <div align="center">
-<img src="{{ asset('img\alventa_logo.png') }}" style="padding-left: 6.5em;">
+<img src="public\img\alventa_logo.png" style="padding-left: 6.5em;">
 <!--Para colocar imagenes. El primer parametro es por si no se visualiza y el segundo es la ruta hacia la imagen-->
 <!--![Logo AlVenta][Logo]-->
 </div>
