@@ -7,6 +7,7 @@
 @endslot
 
 <div align="center">
+<img src="{{ $message->embed(img\alventa_logo.png) }}" style="padding-left: 6.5em;">
 <img src="{{ asset('img\alventa_logo.png') }}" style="padding-left: 6.5em;">
 </div>
 
