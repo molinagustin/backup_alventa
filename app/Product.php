@@ -35,6 +35,26 @@ class Product extends Model
         return '/images/default.png';
     }
 
+    public function getFeaturedImageUrlEmailAttribute()
+    {
+        //Primero obtengo la primer imagen que tenga como condicion FEATURED o DESTACADA
+        $featuredImage = $this->images()->where('featured', true)->first();
+        //Si no hay una, busco la primera que encuentro
+        if (!$featuredImage)
+            $featuredImage = $this->images()->first();
+
+        //Si hay al menos una imagen, le devuelvo la URL a traves del campo calculado en ProductImage
+        if ($featuredImage)
+            if (substr($featuredImage->url, 0, 4) === 'http') {
+                return $featuredImage->url;
+            } else {
+                return asset($featuredImage->url);
+            }
+
+        //Si no hay una imagen, devuelve la url de la imagen por defecto
+        return asset('/images/default.png');
+    }
+
     //Accesor al nombre de la categoria
     public function getCategoryNameAttribute()
     {
