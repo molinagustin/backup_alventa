@@ -90,7 +90,7 @@
 
                 <div class="modal-body">
                     <h6>Cantidad</h6>
-                    <input type="number" name="quantity" value="1" min="1">
+                    <input type="number" name="quantity" value="1" min="1" step="1" oninput="validity.valid||(value='1');" onpress="isNumber(event);" required>
                     <button type="submit" class="btn btn-success">Añadir</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 </div>
@@ -105,4 +105,18 @@
 
 @include('includes.footer')
 
+@endsection
+@section('js_scripts')
+<script>
+    // this prevents from typing non-number text, including "e".
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        let charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+            evt.preventDefault();
+        } else {
+            return true;
+        }
+    }
+</script>
 @endsection

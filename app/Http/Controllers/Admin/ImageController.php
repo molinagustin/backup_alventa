@@ -27,6 +27,9 @@ class ImageController extends Controller
         //Guardar la imagen en la carpeta de nuestro proyecto
         $file = $request->file('photo');
         $path = public_path() . '/images/products/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
+        if (!file_exists($path)) {
+            mkdir($path, 666, true);
+        }
         $fileName = uniqid() . $file->getClientOriginalName(); //Se guarda un nombre en el cual se genera un ID unico y se concatena con el nombre del archivo
 
         //Redimensiono la imagen

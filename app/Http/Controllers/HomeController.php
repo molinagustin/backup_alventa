@@ -50,24 +50,28 @@ class HomeController extends Controller
 
         //Verifico que la contraseña del usuario actual coincida con la ingresada en el formulario
         if (Hash::check($request->input('password'), Auth()->user()->password)) {
-            $user = User::find(Auth()->user()->id);
-            $user->name = $request->input('username');
-            $user->email = $request->input('email');
-            $user->phone = $request->input('phone');
-            $user->address = $request->input('address');
+            if (auth()->user()->email_verified_at) {
+                $user = User::find(Auth()->user()->id);
+                $user->name = $request->input('username');
+                $user->email = $request->input('email');
+                $user->phone = $request->input('phone');
+                $user->address = $request->input('address');
 
-            //Si se detecta un cambio de contraseña, se la asigno a los valores encriptandola
-            if ($request->input('new-password') != null)
-                $user->password = Hash::make($request->input('new-password'));
+                //Si se detecta un cambio de contraseña, se la asigno a los valores encriptandola
+                if ($request->input('new-password') != null)
+                    $user->password = Hash::make($request->input('new-password'));
 
-            $save = $user->save();
+                $save = $user->save();
 
-            if ($save) {
-                $updateUserData = 'Datos modificados correctamente';
-                return back()->with(compact('updateUserData'));
+                if ($save) {
+                    $updateUserData = 'Datos modificados correctamente';
+                    return back()->with(compact('updateUserData'));
+                }
+                $error = 'El registro no pudo ser actualizado.';
+                return back()->with(compact('error'));
             }
-            $error = 'El registro no pudo ser actualizado.';
-            return back()->with(compact('error'));
+            else
+                return back()->withErrors('Debe verificar su correo electrónico antes de realizar cualquier cambio.');
         } else {
             return back();
         }

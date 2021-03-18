@@ -244,29 +244,29 @@
                         @csrf
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4  offset-sm-2">
                                 <label for="inputUserName">Nombre de Usuario</label>
                                 <input type="text" class="form-control" name="username" id="inputUserName" value="{{ old('username', Auth()->user()->name) }}" placeholder="Nombre de Usuario" required>
                             </div>
-                            <div class="form-group col-md-4 offset-sm-2">
+                            <div class="form-group col-md-4">
                                 <label for="password">Contraseña Actual</label>
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 offset-sm-2">
                                 <label for="email">Correo Electrónico</label>
                                 <input type="email" class="form-control" name="email" id="email" value="{{ old('email', Auth()->user()->email) }}" placeholder="Correo Electrónico" required autocomplete="email">
                             </div>
-                            <div class="form-group col-md-4 offset-sm-2">
+                            <div class="form-group col-md-4">
                                 <label for="newPassword">Nueva Contraseña</label>
                                 <input type="password" class="form-control" name="new-password" id="newPassword" placeholder="Nueva Contraseña">
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 offset-sm-2">
                                 <div class="form-group">
                                     <label class="form-check-label" for="email-confirmed">
                                         @if(Auth()->user()->email_verified_at)
@@ -278,21 +278,21 @@
 
                                 </div>
                             </div>
-                            <div class="form-group col-md-4 offset-sm-2">
+                            <div class="form-group col-md-4">
                                 <label for="cNewPassword">Confirmar Nueva Contraseña</label>
                                 <input type="password" class="form-control" name="new-password_confirmation" id="cNewPassword" placeholder="Confirmar Nueva Contraseña">
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 offset-sm-2">
                                 <label for="phone">N° Teléfono</label>
-                                <input type="phone" class="form-control" name="phone" id="phone" value="{{ old('phone', Auth()->user()->phone) }}" placeholder="2625 225566">
+                                <input type="phone" class="form-control" name="phone" id="phone" value="{{ old('phone', Auth()->user()->phone) }}" placeholder="2625225566">
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-4 offset-sm-2">
                                 <label for="address">Dirección</label>
                                 <input type="text" class="form-control" name="address" id="address" value="{{ old('address', Auth()->user()->address) }}" placeholder="Av. Alvear Oeste n° 1245 - B° Islas Malvinas">
                             </div>

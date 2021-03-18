@@ -23,7 +23,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 offset-sm-1">
         <h1 class="title">{{ config('app.name') }}</h1>
         <h4>Compra Venta de nuevos y usados en General Alvear</h4>
         <br>
