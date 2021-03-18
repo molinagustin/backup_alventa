@@ -7,7 +7,7 @@
 @endslot
 
 <div align="center">
-<img src="'{{ asset('img\alventa_logo.png') }}'" style="padding-left: 6.5em;">
+<img src="{{ asset('img\alventa_logo.png') }}" style="padding-left: 6.5em;">
 </div>
 
 # Nueva Consulta

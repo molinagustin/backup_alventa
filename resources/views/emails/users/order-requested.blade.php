@@ -16,7 +16,7 @@ Tú orden fue de los siguientes productos:
         @foreach($cart->details as $detail)
         <tr>
             <td>
-                <img src="'{{$detail->product->featured_image_url}}'" width="50" height="50">
+                <img src="{{$detail->product->featured_image_url}}" width="50" height="50">
             </td>
             <td>
                 <a href="{{ url('/products/'. $detail->product->id) }}" target="_blank">{{$detail->product->name}}</a>
