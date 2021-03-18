@@ -48,9 +48,6 @@ class CategoryController extends Controller
             //Guardar la imagen en la carpeta de nuestro proyecto
             $file = $request->file('image');
             $path = public_path() . '/images/categories/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
-            if (!file_exists($path)) {
-                mkdir($path, 666, true);
-            }
             $fileName = uniqid() . $file->getClientOriginalName(); //Se guarda un nombre en el cual se genera un ID unico y se concatena con el nombre del archivo
 
             //Redimensiono la imagen
@@ -102,10 +99,7 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             //Guardar la imagen en la carpeta de nuestro proyecto
             $file = $request->file('image');
-            $path = public_path() . '/images/categories/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto
-            if (!file_exists($path)) {
-                mkdir($path, 666, true);
-            }
+            $path = public_path() . '/images/categories/'; // El public_path es la ruta absoluta hacia la carpeta PUBLIC dentro de nuestro proyecto            
             $fileName = uniqid() . $file->getClientOriginalName(); //Se guarda un nombre en el cual se genera un ID unico y se concatena con el nombre del archivo
 
             //Redimensiono la imagen
