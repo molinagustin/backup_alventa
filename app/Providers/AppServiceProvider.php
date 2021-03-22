@@ -25,5 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::withoutComponentTags();
+        /*if (config('app.env') === 'production') {
+            \URL::forceScheme('https');
+        }*/
     }
 }
