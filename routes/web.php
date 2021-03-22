@@ -55,6 +55,10 @@ Route::delete('/cart', 'CartDetailController@destroy');
 Route::get('/order/{cart}', 'CartController@show');
 Route::post('/order', 'CartController@update'); //Actualiza el estado del carro de Activo a Pendiente, queriendo decir que se realizo una nueva orden de compra
 
+//PayPal
+Route::get('/paypal/pay', 'PaypalPaymentController@pay');
+Route::get('/paypal/status', 'PaypalPaymentController@status');
+
 //Utilizamos un middleware para asociarlo a un grupo de rutas, de esta forma se aplicara a cualquier ruta dentro del grupo elegido
 //Para usar el prefijo 'admin' se le aplico un alias al AdminMiddleware.php en el archivo Kernel.php dentro de App\Http
 /*Route::middleware(['auth', 'admin'])->group(function () {

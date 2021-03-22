@@ -71,6 +71,7 @@
         <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalOrder">
             <i class="material-icons">local_shipping</i> Realizar Pedido
         </button>
+        <a class="btn btn-primary btn-round" href="{{ url('/paypal/pay') }}" target="_blank">Pagar con PayPal <img src="{{ asset('img/paypal_icon.svg') }}" height="17" width="17"></a>
     </div>
     @endif
 </div>
